@@ -1,0 +1,507 @@
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+ <title>Accounts</title>
+ <script type="text/javascript">
+  var thisPLJ, thisURL, thisBFJ, thisArgs
+  var thisPJ, thisLink, thisBJ
+  var thisKRJ,          thisRAJ
+  var thisKJ,           thisRJ
+
+  function handleLoad(aLink, aPJ, aBJ, aKJ, aRJ) {
+   thisPJ= aPJ
+   thisLink= aLink
+   thisBJ= aBJ
+   thisKJ= aKJ
+   thisRJ= aRJ
+   
+   flagEmpty(thisPJ, "")
+   flagEmpty(thisBJ, "")
+   flagEmpty(thisKJ, "")
+   flagEmpty(thisRJ, "")
+   
+   thisPLJ= thisBFJ= thisKRJ= thisRAJ= " is set when you choose a destination!"
+   thisPLJ= "PLJ" + thisPLJ
+   thisBFJ= "BFJ" + thisBFJ
+   thisKRJ= "KRJ" + thisKRJ
+   thisRAJ= "RAJ" + thisRAJ
+   thisURL= "home.html"
+
+   thisArgs= window.location.href
+   thisArgs= thisArgs.split("?")
+   if (thisArgs.length == 2) {
+    thisArgs= thisArgs[1]
+   } else {
+    thisArgs= ""
+   }
+  }
+
+  function handleChoice(aLink, aURL, aPLJ, aBFJ, aKRJ, aRAJ) {
+   thisLink.value= aLink
+   thisURL= aURL
+   thisPLJ= aPLJ
+   thisBFJ= aBFJ
+   thisKRJ= aKRJ
+   thisRAJ= aRAJ
+
+   flagEmpty(thisPJ, aPLJ)
+   flagEmpty(thisBJ, aBFJ)
+   flagEmpty(thisKJ, aKRJ)
+   flagEmpty(thisRJ, aRAJ)
+   
+   if (thisArgs != "Immed=No") {
+    handleLink(true)
+   }
+  }
+
+  function flagEmpty(aField, aName) {
+   if (aName.length == 0) {
+    aField.style.backgroundColor = "LightPink"
+   } else {
+    aField.style.backgroundColor = "LightGreen"
+   }
+  }
+
+  function handleFocus(aValue) {
+   thisLink.focus()
+   prompt("User Name", aValue)
+  }
+ 
+  function handleLink(aTbd) {
+   if (aTbd) {
+    window.open(thisURL)
+   } else {
+    window.open('https://plj541.github.io/APL.js.User/File/home.html')
+   }
+  }
+ </script>
+</head>
+
+<body onload="handleLoad(formLinks.buttonLink,
+  formLinks.textPLJ, formLinks.textBFJ,
+  formLinks.textKRJ, formLinks.textRAJ)">
+ <form name="formLinks" action="">
+ <table border="1" cellspacing="12" cellpadding="0">
+ <tr>
+  <td width="200"><center>
+   <div style="background-color:LemonChiffon">Join</div>
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="AARP"
+    onclick="handleChoice('AARP', 
+    'http://www.aarp.org/',
+    'plj541@gmail.com', 'bfj636@gmail.com', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="ACER"
+    onclick="handleChoice('ACER', 
+    'http://us.acer.com/ac/en/US/content/support/',
+    'plj541@gmail.com', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="ACM"
+    onclick="handleChoice('ACM', 
+    'http://myacm.acm.org/',
+    'pauljackson2', '', '', '')">
+  </center></td>
+ </tr>
+ <tr>
+  <td width="200"><center>
+   <input type="button"
+    value="Ancestry"
+    onclick="handleChoice('Ancestry', 
+    'http://www.ancestry.com/',
+    'plj541', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="DMV"
+    onclick="handleChoice('DMV', 
+    'http://www.dmv.ca.gov/',
+    'PaulLJackson', '', '', 'RobAJackson')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="FaceBook"
+    onclick="handleChoice('FaceBook', 
+    'http://www.facebook.com/',
+    'plj541@gmail.com', 'bfj22@comcast.net', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="GitHub PLJ541"
+    onclick="handleChoice('GitHub PLJ541', 
+    'https://github.com/plj541/',
+    '', '', '', '')">
+  </center></td>
+ </tr>
+ <tr>
+  <td width="200"><center>
+   <input type="button"
+    value="Go Comics"
+    onclick="handleChoice('Go Comics', 
+    'http://www.gocomics.com/',
+    'PLJ541', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="KQED"
+    onclick="handleChoice('KQED', 
+    'http://www.kqed.org/',
+    'plj541@gmail.com', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="Medscape"
+    onclick="handleChoice('Medscape', 
+    'http://www.medscape.com/',
+    'PaulLJackson', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="NARS"
+    onclick="handleChoice('NARS', 
+    'http://www.nars2000.org/',
+    'PaulJackson', '', '', '')">
+  </center></td>
+ </tr>
+ <tr>
+  <td width="200"><center>
+   <input type="button"
+    value="NextDoor"
+    onclick="handleChoice('NextDoor', 
+    'https://rexmanor.nextdoor.com/login/',
+    'plj541@gmail.com', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="NYTimes"
+    onclick="handleChoice('NYTimes', 
+    'https://www.nytimes.com/',
+    'plj541@gmail.com', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="OSH"
+    onclick="handleChoice('OSH', 
+    'https://cluborchard.osh.com/',
+    'plj541@gmail.com', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="Quora Digest"
+    onclick="handleChoice('Quora Digest', 
+    'https://www.quora.com/',
+    'plj541@gmail.com', '', '', '')">
+  </center></td>
+ </tr>
+ <tr>
+  <td width="200"><center>
+   <input type="button"
+    value="RedBox"
+    onclick="handleChoice('RedBox', 
+    'http://www.redbox.com/',
+    'plj541@gmail.com', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="Safeway Coupons"
+    onclick="handleChoice('Safeway Coupons', 
+    'https://auth.safeway.com/',
+    'plj541@gmail.com', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="SamSung Account"
+    onclick="handleChoice('SamSung Account', 
+    'https://www.samsung.com/us/support/account/',
+    'plj541@gmail.com', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="SIIG VHS Transfer"
+    onclick="handleChoice('SIIG VHS Transfer', 
+    'https://www.siig.com/customer/account/',
+    'plj541@gmail.com', '', '', '')">
+  </center></td>
+ </tr>
+ <tr>
+  <td width="200"><center>
+   <input type="button"
+    value="Skype#"
+    onclick="handleChoice('Skype#', 
+    'file:///sdcard/My Documents/Jay/my/groups/Launch.html?Skype',
+    'plj541@gmail.com', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="Stanford MyHealth"
+    onclick="handleChoice('Stanford MyHealth', 
+    'https://myhealth.stanfordmedicine.org/',
+    'paul.l.jackson@comcast.net', 'bfj22@comcast.net', 'kayte.r.jackson@comcast.net', 'rajackson822@gmail.com')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="Tumblr"
+    onclick="handleChoice('Tumblr', 
+    'http://www.tumblr.com/',
+    'plj541@gmail.com', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="Twitter"
+    onclick="handleChoice('Twitter', 
+    'https://twitter.com/',
+    'plj541@gmail.com', '', '', '')">
+  </center></td>
+ </tr>
+ <tr>
+  <td width="200"><center>
+   <input type="button"
+    value="UpToUs"
+    onclick="handleChoice('UpToUs', 
+    'http://www.uptous.com/',
+    'plj541@gmail.com', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="WaterInsight Program"
+    onclick="handleChoice('WaterInsight Program', 
+    'https://mountainview.waterinsight.com/',
+    'plj541@gmail.com', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="Washington Post"
+    onclick="handleChoice('Washington Post', 
+    'https://www.washingtonpost.com',
+    'plj541@gmail.com', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="YaHoo"
+    onclick="handleChoice('YaHoo', 
+    'http://www.yahoo.com/',
+    'plj541', '', '', '')">
+  </center></td>
+ </tr>
+ <tr>
+  <td width="200"><center>
+   <div style="background-color:LemonChiffon">Far</div>
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="Amazon Shopping Cart"
+    onclick="handleChoice('Amazon Shopping Cart', 
+    'http://www.amazon.com/',
+    'plj11@comcast.net', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="Best Buy"
+    onclick="handleChoice('Best Buy', 
+    'https://myrewardzone.bestbuy.com/',
+    'plj541@gmail.com', '2661511789', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="Blue Shield CA"
+    onclick="handleChoice('Blue Shield CA', 
+    'https://www.blueshieldca.com/',
+    '', '', 'KayteRJackson', 'RobertAJackson')">
+  </center></td>
+ </tr>
+ <tr>
+  <td width="200"><center>
+   <input type="button"
+    value="Franchise Tax Board"
+    onclick="handleChoice('Franchise Tax Board', 
+    'https://ftb.ca.gov/',
+    'PaulLJackson541', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="Jackson.Com"
+    onclick="handleChoice('Jackson.Com', 
+    'https://www.jackson.com/',
+    'PaulJackson541', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="John Hancock & Signatore"
+    onclick="handleChoice('John Hancock & Signatore', 
+    'https://www2.mainaccount.com/jhfn/Login.html',
+    'pjackson', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="LinkedIn"
+    onclick="handleChoice('LinkedIn', 
+    'http://www.linkedin.com/manageGroupMembers?dispParts=&gid=132770&memberLevel=MEMBER',
+    'paul.l.jackson@comcast.net', '', '', '')">
+  </center></td>
+ </tr>
+ <tr>
+  <td width="200"><center>
+   <input type="button"
+    value="OptumRX"
+    onclick="handleChoice('OptumRX', 
+    'https://www.optumrx.com/RxSolWeb/mvc/home.do',
+    'PaulLJackson', 'BarbaraFJackson', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="Patient Advocate Foundation"
+    onclick="handleChoice('Patient Advocate Foundation', 
+    'https://www.copays.org',
+    '', 'bfj636@gmail.com', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="PAY Pal"
+    onclick="handleChoice('PAY Pal', 
+    'https://www.paypal.com/',
+    'plj541@gmail.com', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="PG&E"
+    onclick="handleChoice('PG&E', 
+    'https://www.pge.com/',
+    'plj541@gmail.com', '', '', '')">
+  </center></td>
+ </tr>
+ <tr>
+  <td width="200"><center>
+   <input type="button"
+    value="JCPenney"
+    onclick="handleChoice('JCPenney', 
+    'https://www.jcpenney.com/',
+    'plj541@gmail.com', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="Santa Clara Taxes"
+    onclick="handleChoice('Santa Clara Taxes', 
+    'https://www.sccassessor.org/index.php/online-services/email-opt-in/manage-your-account',
+    'plj541@gmail.com', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="VerizonCell Phones"
+    onclick="handleChoice('VerizonCell Phones', 
+    'https://login.verizonwireless.com/amserver/UI/Login',
+    'PaulLJackson', '', '', '')">
+  </center></td>
+  <td width="200"></td>
+ </tr>
+ <tr>
+  <td width="200"><center>
+   <div style="background-color:LemonChiffon">¡Know</div>
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="H&amp;R Block"
+    onclick="handleChoice('H&amp;R Block', 
+    'https://taxes.hrblock.com/',
+    'tex541', '', 'rose4891', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="John Hancock Annuities"
+    onclick="handleChoice('John Hancock Annuities', 
+    'https://www.jhannuities.com/Marketing/default.aspx',
+    'PaulLJackson', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="MyMedicare.Gov"
+    onclick="handleChoice('MyMedicare.Gov', 
+    'https://www.mymedicare.gov/',
+    'plj541@gmail.com', 'BARBARAFJACKSON', '', '')">
+  </center></td>
+ </tr>
+ <tr>
+  <td width="200"><center>
+   <input type="button"
+    value="Pettinelli Financial Partners"
+    onclick="handleChoice('Pettinelli Financial Partners', 
+    'https://wealth.emaplan.com/ema/SignIn?ema%2fsignator%2fpettinellifinprtnrs&redirectUrl=http%3a%2f%2fwealth.emaplan.com%2fema%2fSignIn%2fPassword%3fema%252fsignator%252fpettinellifinprtnrs',
+    'plj541@gmail.com', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="Social Security Admin"
+    onclick="handleChoice('Social Security Admin', 
+    'https://secure.ssa.gov/RIL',
+    'peaceLoveJoy', 'bootsFrederick', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="State Farm Insurance"
+    onclick="handleChoice('State Farm Insurance', 
+    'http://www.statefarm.com/',
+    'plj541', '', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="TurboTax Online"
+    onclick="handleChoice('TurboTax Online', 
+    'https://turbotax.intuit.com/',
+    'pablo5491', '', 'rose4891', '')">
+  </center></td>
+ </tr>
+ <tr>
+  <td width="200"><center>
+   <input type="button"
+    value="United Healthcare AARP"
+    onclick="handleChoice('United Healthcare AARP', 
+    'https://member.aarpmedicareplans.com/login.html',
+    'plj541@gmail.com', 'bfj636@gmail.com', '', '')">
+  </center></td>
+  <td width="200"><center>
+   <input type="button"
+    value="Wells Fargo"
+    onclick="handleChoice('Wells Fargo', 
+    'https://www.wellsfargo.com/',
+    'jack50ntr41', '', '', '')">
+  </center></td>
+  <td width="200"></td>
+  <td width="200"></td>
+ </tr>
+ <tr>
+  <td width="200"><center><br>
+   <input type="Text" style="font-size:18px"
+    name="textPLJ" size="5" value="     PLJ"
+    onfocus="handleFocus(thisPLJ)" />
+  </center></td>
+  <td width="200"><center><br>
+   <input type="button" onclick="handleLink(true)"
+    name="buttonLink" value=" T.B.D. ">
+  </center></td>
+  <td width="200"><center><br>
+   <input type="Text" style="font-size:18px"
+    name="textBFJ" size="5" value="     BFJ"
+    onfocus="handleFocus(thisBFJ)" />
+  </center></td>
+ </tr>
+ <tr>
+  <td width="200"><center><br>
+   <input type="Text" style="font-size:18px"
+    name="textKRJ" size="5" value="     KRJ"
+    onfocus="handleFocus(thisKRJ)" />
+  </center></td>
+  <td width="200"><center><br>
+   <input type="button" onclick="handleLink(false)"
+    name="buttonHome" value="Go to Home">
+  </center></td>
+  <td width="200"><center><br>
+   <input type="Text" style="font-size:18px"
+    name="textRAJ" size="5" value="     RAJ"
+    onfocus="handleFocus(thisRAJ)" />
+  </center></td>
+ </tr>
+ </table></form>
+</body></html>
