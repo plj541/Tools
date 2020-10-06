@@ -1,80 +1,78 @@
 <html>
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
- <title>Accounts</title>
- <script type="text/javascript">
-  var thisPLJ, thisURL, thisBFJ, thisArgs
-  var thisPJ, thisLink, thisBJ
-  var thisKRJ,          thisRAJ
-  var thisKJ,           thisRJ
+<title>Accounts</title><script type="text/javascript">
+var thisPLJ, thisURL, thisBFJ, thisArgs
+var thisPJ, thisLink, thisBJ
+var thisKRJ, thisRAJ
+var thisKJ, thisRJ
 
-  function handleLoad(aLink, aPJ, aBJ, aKJ, aRJ) {
-   thisPJ= aPJ
-   thisLink= aLink
-   thisBJ= aBJ
-   thisKJ= aKJ
-   thisRJ= aRJ
+function handleLoad(aLink, aPJ, aBJ, aKJ, aRJ) {
+ thisPJ= aPJ
+ thisLink= aLink
+ thisBJ= aBJ
+ thisKJ= aKJ
+ thisRJ= aRJ
    
-   flagEmpty(thisPJ, "")
-   flagEmpty(thisBJ, "")
-   flagEmpty(thisKJ, "")
-   flagEmpty(thisRJ, "")
+ flagEmpty(thisPJ, "")
+ flagEmpty(thisBJ, "")
+ flagEmpty(thisKJ, "")
+ flagEmpty(thisRJ, "")
    
-   thisPLJ= thisBFJ= thisKRJ= thisRAJ= " is set when you choose a destination!"
-   thisPLJ= "PLJ" + thisPLJ
-   thisBFJ= "BFJ" + thisBFJ
-   thisKRJ= "KRJ" + thisKRJ
-   thisRAJ= "RAJ" + thisRAJ
-   thisURL= "home.html"
+ thisPLJ= thisBFJ= thisKRJ= thisRAJ= " is set when you choose a destination!"
+ thisPLJ= "PLJ" + thisPLJ
+ thisBFJ= "BFJ" + thisBFJ
+ thisKRJ= "KRJ" + thisKRJ
+ thisRAJ= "RAJ" + thisRAJ
+ thisURL= "home.html"
 
-   thisArgs= window.location.href
-   thisArgs= thisArgs.split("?")
-   if (thisArgs.length == 2) {
-    thisArgs= thisArgs[1]
-   } else {
-    thisArgs= ""
-   }
-  }
+ thisArgs= window.location.href
+ thisArgs= thisArgs.split("?")
+ if (thisArgs.length == 2) {
+  thisArgs= thisArgs[1]
+ } else {
+  thisArgs= ""
+ }
+}
 
-  function handleChoice(aLink, aURL, aPLJ, aBFJ, aKRJ, aRAJ) {
-   thisLink.value= aLink
-   thisURL= aURL
-   thisPLJ= aPLJ
-   thisBFJ= aBFJ
-   thisKRJ= aKRJ
-   thisRAJ= aRAJ
+function handleChoice(aLink, aURL, aPLJ, aBFJ, aKRJ, aRAJ) {
+ thisLink.value= aLink
+ thisURL= aURL
+ thisPLJ= aPLJ
+ thisBFJ= aBFJ
+ thisKRJ= aKRJ
+ thisRAJ= aRAJ
 
-   flagEmpty(thisPJ, aPLJ)
-   flagEmpty(thisBJ, aBFJ)
-   flagEmpty(thisKJ, aKRJ)
-   flagEmpty(thisRJ, aRAJ)
+ flagEmpty(thisPJ, aPLJ)
+ flagEmpty(thisBJ, aBFJ)
+ flagEmpty(thisKJ, aKRJ)
+ flagEmpty(thisRJ, aRAJ)
    
-   if (thisArgs != "Immed=No") {
-    handleLink(true)
-   }
-  }
+ if (thisArgs != "Immed=No") {
+  handleLink(true)
+ }
+}
 
-  function flagEmpty(aField, aName) {
-   if (aName.length == 0) {
-    aField.style.backgroundColor = "LightPink"
-   } else {
-    aField.style.backgroundColor = "LightGreen"
-   }
-  }
+function flagEmpty(aField, aName) {
+ if (aName.length == 0) {
+  aField.style.backgroundColor = "LightPink"
+ } else {
+  aField.style.backgroundColor = "LightGreen"
+ }
+}
 
-  function handleFocus(aValue) {
-   thisLink.focus()
-   prompt("User Name", aValue)
-  }
+function handleFocus(aValue) {
+ thisLink.focus()
+ prompt("User Name", aValue)
+}
  
-  function handleLink(aTbd) {
-   if (aTbd) {
-    window.open(thisURL)
-   } else {
-    window.open('https://plj541.github.io/Tools/Home.html')
-   }
-  }
- </script>
-</head>
+function handleLink(aTbd) {
+ if (aTbd) {
+  window.open(thisURL)
+ } else {
+  window.open('https://plj541.github.io/Tools/Home.html')
+ }
+}
+</script></head>
 
 <body onload="handleLoad(formLinks.buttonLink,
   formLinks.textPLJ, formLinks.textBFJ,
@@ -85,169 +83,147 @@
   <td width="200"><center>
    <div style="background-color:LemonChiffon">Join</div>
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="Stanford MyHealth"
-    onclick="handleChoice('Stanford MyHealth', 'https://myhealth.stanfordmedicine.org/',
-    'paul.l.jackson@comcast.net', '',
-    'kayte.r.jackson@comcast.net', 'rajackson822@gmail.com')">
+  <td width="200"><center><input type="button" value="Stanford MyHealth"
+ onclick="handleChoice('Stanford MyHealth',
+ 'https://myhealth.stanfordmedicine.org/',
+ 'paul.l.jackson@comcast.net', '',
+ 'kayte.r.jackson@comcast.net', 'rajackson822@gmail.com')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="Delta Dental"
-    onclick="handleChoice('Delta Dental', 'https://www.deltadentalins.com/shcadvantage/',
-    'PaulLJackson', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="Delta Dental"
+ onclick="handleChoice('Delta Dental',
+ 'https://www.deltadentalins.com/shcadvantage/',
+ 'PaulLJackson', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="Vision Service Plan"
-    onclick="handleChoice('Vision Service Plan', 'https://www.vsp.com/',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="Vision Service Plan"
+ onclick="handleChoice('Vision Service Plan',
+ 'https://www.vsp.com/',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
  </tr>
  <tr>
-  <td width="200"><center>
-   <input type="button"
-    value="AARP"
-    onclick="handleChoice('AARP', 'http://www.aarp.org/',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="AARP"
+ onclick="handleChoice('AARP',
+ 'http://www.aarp.org/',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="ACM"
-    onclick="handleChoice('ACM', 'http://myacm.acm.org/',
-    'pauljackson2', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="ACM"
+ onclick="handleChoice('ACM',
+ 'http://myacm.acm.org/',
+ 'pauljackson2', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="Acorn"
-    onclick="handleChoice('Acorn', '',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="Acorn"
+ onclick="handleChoice('Acorn',
+ '',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="Ancestry"
-    onclick="handleChoice('Ancestry', 'http://www.ancestry.com/',
-    'plj541', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="Ancestry"
+ onclick="handleChoice('Ancestry',
+ 'http://www.ancestry.com/',
+ 'plj541', '',
+ '', '')">
   </center></td>
  </tr>
  <tr>
-  <td width="200"><center>
-   <input type="button"
-    value="FaceBook"
-    onclick="handleChoice('FaceBook', 'http://www.facebook.com/',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="FaceBook"
+ onclick="handleChoice('FaceBook',
+ 'http://www.facebook.com/',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="GitHub PLJ541"
-    onclick="handleChoice('GitHub PLJ541', 'https://github.com/plj541/Tools/upload/gh-pages',
-    '', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="GitHub PLJ541"
+ onclick="handleChoice('GitHub PLJ541',
+ 'https://github.com/plj541/Tools/upload/gh-pages',
+ '', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="KQED"
-    onclick="handleChoice('KQED', 'http://www.kqed.org/',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="KQED"
+ onclick="handleChoice('KQED',
+ 'http://www.kqed.org/',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="Loop"
-    onclick="handleChoice('Loop', 'http://www.loopneighborhood.com/',
-    'PaulLJackson', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="Loop"
+ onclick="handleChoice('Loop',
+ 'http://www.loopneighborhood.com/',
+ 'PaulLJackson', '',
+ '', '')">
   </center></td>
  </tr>
  <tr>
-  <td width="200"><center>
-   <input type="button"
-    value="Magnussen Scheduling"
-    onclick="handleChoice('Magnussen Scheduling', 'https://www.toyotapaloalto.com/schedule-car-maintenance-or-auto-repair-palo-alto-ca',
-    '', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="Magnussen Scheduling"
+ onclick="handleChoice('Magnussen Scheduling',
+ 'https://www.toyotapaloalto.com/schedule-car-maintenance-or-auto-repair-palo-alto-ca',
+ '', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="Medscape"
-    onclick="handleChoice('Medscape', 'http://www.medscape.com/',
-    'PaulLJackson', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="Medscape"
+ onclick="handleChoice('Medscape',
+ 'http://www.medscape.com/',
+ 'PaulLJackson', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="MVG HOA"
-    onclick="handleChoice('MVG HOA', 'https://acepminc.appfolio.com/connect/',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="MVG HOA"
+ onclick="handleChoice('MVG HOA',
+ 'https://acepminc.appfolio.com/connect/',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="NARS"
-    onclick="handleChoice('NARS', 'http://www.nars2000.org/',
-    'PaulJackson', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="NARS"
+ onclick="handleChoice('NARS',
+ 'http://www.nars2000.org/',
+ 'PaulJackson', '',
+ '', '')">
   </center></td>
  </tr>
  <tr>
-  <td width="200"><center>
-   <input type="button"
-    value="NextDoor"
-    onclick="handleChoice('NextDoor', 'https://rexmanor.nextdoor.com/login/',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="NextDoor"
+ onclick="handleChoice('NextDoor',
+ 'https://rexmanor.nextdoor.com/login/',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="ProtectMyId"
-    onclick="handleChoice('ProtectMyId', 'https://aaa.protectmyid.com/',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="ProtectMyId"
+ onclick="handleChoice('ProtectMyId',
+ 'https://aaa.protectmyid.com/',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="Quora Digest"
-    onclick="handleChoice('Quora Digest', 'https://www.quora.com/',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="Quora Digest"
+ onclick="handleChoice('Quora Digest',
+ 'https://www.quora.com/',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="Santa Clara Assessor"
-    onclick="handleChoice('Santa Clara Assessor', 'https://www.sccassessor.org/index.php/email-opt-in/manage-your-account',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="Santa Clara Assessor"
+ onclick="handleChoice('Santa Clara Assessor',
+ 'https://www.sccassessor.org/index.php/email-opt-in/manage-your-account',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
  </tr>
  <tr>
-  <td width="200"><center>
-   <input type="button"
-    value="UpToUs"
-    onclick="handleChoice('UpToUs', 'http://www.uptous.com/',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="UpToUs"
+ onclick="handleChoice('UpToUs',
+ 'http://www.uptous.com/',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="Washington Post"
-    onclick="handleChoice('Washington Post', 'https://www.washingtonpost.com',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="Washington Post"
+ onclick="handleChoice('Washington Post',
+ 'https://www.washingtonpost.com',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="YaHoo"
-    onclick="handleChoice('YaHoo', 'http://www.yahoo.com/',
-    'plj541', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="YaHoo"
+ onclick="handleChoice('YaHoo',
+ 'http://www.yahoo.com/',
+ 'plj541', '',
+ '', '')">
   </center></td>
   <td width="200"></td>
  </tr>
@@ -255,283 +231,238 @@
   <td width="200"><center>
    <div style="background-color:LemonChiffon">Far</div>
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="Amazon Shop Cart"
-    onclick="handleChoice('Amazon Shop Cart', 'http://www.amazon.com/',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="Amazon Shop Cart"
+ onclick="handleChoice('Amazon Shop Cart',
+ 'http://www.amazon.com/',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="BenefitsCalWin"
-    onclick="handleChoice('BenefitsCalWin', 'https://www.mybenefitscalwin.org/',
-    '', '',
-    'vhsgoddess', 'raj')">
+  <td width="200"><center><input type="button" value="BenefitsCalWin"
+ onclick="handleChoice('BenefitsCalWin',
+ 'https://www.mybenefitscalwin.org/',
+ '', '',
+ 'vhsgoddess', 'raj')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="Best Buy"
-    onclick="handleChoice('Best Buy', 'https://myrewardzone.bestbuy.com/',
-    'plj541@gmail.com', '2661511789',
-    '', '')">
+  <td width="200"><center><input type="button" value="Best Buy"
+ onclick="handleChoice('Best Buy',
+ 'https://myrewardzone.bestbuy.com/',
+ 'plj541@gmail.com', '2661511789',
+ '', '')">
   </center></td>
  </tr>
  <tr>
-  <td width="200"><center>
-   <input type="button"
-    value="CBS"
-    onclick="handleChoice('CBS', 'http://www.cbs.com/',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="CBS"
+ onclick="handleChoice('CBS',
+ 'http://www.cbs.com/',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="Disney Plus"
-    onclick="handleChoice('Disney Plus', 'https://www.disneyplus.com/',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="Disney Plus"
+ onclick="handleChoice('Disney Plus',
+ 'https://www.disneyplus.com/',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="DMV"
-    onclick="handleChoice('DMV', 'http://www.dmv.ca.gov/',
-    'PaulLJackson', '',
-    'KayteRJackson', 'RobAJackson')">
+  <td width="200"><center><input type="button" value="DMV"
+ onclick="handleChoice('DMV',
+ 'http://www.dmv.ca.gov/',
+ 'PaulLJackson', '',
+ 'KayteRJackson', 'RobAJackson')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="Jackson.Com"
-    onclick="handleChoice('Jackson.Com', 'https://www.jackson.com/',
-    'PaulJackson541', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="Jackson.Com"
+ onclick="handleChoice('Jackson.Com',
+ 'https://www.jackson.com/',
+ 'PaulJackson541', '',
+ '', '')">
   </center></td>
  </tr>
  <tr>
-  <td width="200"><center>
-   <input type="button"
-    value="HBO"
-    onclick="handleChoice('HBO', 'https://activate.hbomax.com/',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="HBO"
+ onclick="handleChoice('HBO',
+ 'https://activate.hbomax.com/',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="HuLu"
-    onclick="handleChoice('HuLu', 'http://www.hulu.com/',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="HuLu"
+ onclick="handleChoice('HuLu',
+ 'http://www.hulu.com/',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="LinkedIn"
-    onclick="handleChoice('LinkedIn', 'https://www.linkedin.com/mynetwork/',
-    'paul.l.jackson@comcast.net', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="LinkedIn"
+ onclick="handleChoice('LinkedIn',
+ 'https://www.linkedin.com/mynetwork/',
+ 'paul.l.jackson@comcast.net', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="NetFlix"
-    onclick="handleChoice('NetFlix', 'http://www.netflix.com/',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="NetFlix"
+ onclick="handleChoice('NetFlix',
+ 'http://www.netflix.com/',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
  </tr>
  <tr>
-  <td width="200"><center>
-   <input type="button"
-    value="PAY Pal"
-    onclick="handleChoice('PAY Pal', 'https://www.paypal.com/',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="PAY Pal"
+ onclick="handleChoice('PAY Pal',
+ 'https://www.paypal.com/',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="Pettinelli OneView"
-    onclick="handleChoice('Pettinelli OneView', 'https://oneview.v2020-sai.com/',
-    'paulj541', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="Pettinelli OneView"
+ onclick="handleChoice('Pettinelli OneView',
+ 'https://oneview.v2020-sai.com/',
+ 'paulj541', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="PG&E"
-    onclick="handleChoice('PG&E', 'https://www.pge.com/',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="PG&E"
+ onclick="handleChoice('PG&E',
+ 'https://www.pge.com/',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="Samsung"
-    onclick="handleChoice('Samsung', 'https://account.samsung.com/',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="Samsung"
+ onclick="handleChoice('Samsung',
+ 'https://account.samsung.com/',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
  </tr>
  <tr>
-  <td width="200"><center>
-   <input type="button"
-    value="Santa Clara Payments"
-    onclick="handleChoice('Santa Clara Payments', 'https://payments.sccgov.org/propertytax/Secured',
-    '150-25-020-00', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="Santa Clara Payments"
+ onclick="handleChoice('Santa Clara Payments',
+ 'https://payments.sccgov.org/propertytax/Secured',
+ '150-25-020-00', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="Sears Citibank"
-    onclick="handleChoice('Sears Citibank', 'http://syw.accountonline.com/',
-    'Paul L Jackson', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="Sears Citibank"
+ onclick="handleChoice('Sears Citibank',
+ 'http://syw.accountonline.com/',
+ 'Paul L Jackson', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="Stanford Advantage"
-    onclick="handleChoice('Stanford Advantage', 'https://www.stanfordhealthcareadvantage.org/',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="Stanford Advantage"
+ onclick="handleChoice('Stanford Advantage',
+ 'https://www.stanfordhealthcareadvantage.org/',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="Tubi TV"
-    onclick="handleChoice('Tubi TV', 'https://tubitv.com/home/',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="Tubi TV"
+ onclick="handleChoice('Tubi TV',
+ 'https://tubitv.com/home/',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
  </tr>
  <tr>
-  <td width="200"><center>
-   <input type="button"
-    value="USAA"
-    onclick="handleChoice('USAA', 'http://www.usaa.com',
-    'PaulLJackson', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="USAA"
+ onclick="handleChoice('USAA',
+ 'http://www.usaa.com',
+ 'PaulLJackson', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="VerizonCell Phones"
-    onclick="handleChoice('VerizonCell Phones', 'https://login.verizonwireless.com/amserver/UI/Login',
-    'PaulLJackson', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="VerizonCell Phones"
+ onclick="handleChoice('VerizonCell Phones',
+ 'https://login.verizonwireless.com/amserver/UI/Login',
+ 'PaulLJackson', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="Verizon Redeem"
-    onclick="handleChoice('Verizon Redeem', 'http://m.vzw.com/m/redeemnow',
-    'PaulLJackson', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="Verizon Redeem"
+ onclick="handleChoice('Verizon Redeem',
+ 'http://m.vzw.com/m/redeemnow',
+ 'PaulLJackson', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="ZOOM"
-    onclick="handleChoice('ZOOM', 'https://zoom.us/profile',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="ZOOM"
+ onclick="handleChoice('ZOOM',
+ 'https://zoom.us/profile',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
  </tr>
  <tr>
   <td width="200"><center>
    <div style="background-color:LemonChiffon">¡Know</div>
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="AAA"
-    onclick="handleChoice('AAA', 'http://www.aaa.com/mobile',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="AAA"
+ onclick="handleChoice('AAA',
+ 'http://www.aaa.com/mobile',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="H&amp;R Block"
-    onclick="handleChoice('H&amp;R Block', 'https://taxes.hrblock.com/',
-    'tex541', '',
-    'rose4891', '')">
+  <td width="200"><center><input type="button" value="H&amp;R Block"
+ onclick="handleChoice('H&amp;R Block',
+ 'https://taxes.hrblock.com/',
+ 'tex541', '',
+ 'rose4891', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="John Hancock Annuities"
-    onclick="handleChoice('John Hancock Annuities', 'https://www.jhannuities.com/Marketing/default.aspx',
-    'PaulLJackson', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="John Hancock Annuities"
+ onclick="handleChoice('John Hancock Annuities',
+ 'https://www.jhannuities.com/Marketing/default.aspx',
+ 'PaulLJackson', '',
+ '', '')">
   </center></td>
  </tr>
  <tr>
-  <td width="200"><center>
-   <input type="button"
-    value="MedImpact"
-    onclick="handleChoice('MedImpact', 'https://www.medimpactdirect.com/Prescription/MyMedications',
-    'PaulLJackson', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="MedImpact"
+ onclick="handleChoice('MedImpact',
+ 'https://www.medimpact.com/web/login?fromURI=https:%2F%2Fconsumerportal.medimpact.com',
+ 'PaulLJackson', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="MyMedicare.Gov"
-    onclick="handleChoice('MyMedicare.Gov', 'https://www.mymedicare.gov/',
-    'plj541@gmail.com', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="MyMedicare.Gov"
+ onclick="handleChoice('MyMedicare.Gov',
+ 'https://www.mymedicare.gov/',
+ 'plj541@gmail.com', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="Social Security Admin"
-    onclick="handleChoice('Social Security Admin', 'https://secure.ssa.gov/RIL',
-    'peaceLoveJoy', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="Social Security Admin"
+ onclick="handleChoice('Social Security Admin',
+ 'https://secure.ssa.gov/RIL',
+ 'peaceLoveJoy', '',
+ '', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="State Farm Insurance"
-    onclick="handleChoice('State Farm Insurance', 'http://www.statefarm.com/',
-    'plj541', '',
-    '', '')">
+  <td width="200"><center><input type="button" value="State Farm Insurance"
+ onclick="handleChoice('State Farm Insurance',
+ 'http://www.statefarm.com/',
+ 'plj541', '',
+ '', '')">
   </center></td>
  </tr>
  <tr>
-  <td width="200"><center>
-   <input type="button"
-    value="TurboTax Online"
-    onclick="handleChoice('TurboTax Online', 'https://turbotax.intuit.com/',
-    'pablo5491', '',
-    'rose4891', '')">
+  <td width="200"><center><input type="button" value="TurboTax Online"
+ onclick="handleChoice('TurboTax Online',
+ 'https://turbotax.intuit.com/',
+ 'pablo5491', '',
+ 'rose4891', '')">
   </center></td>
-  <td width="200"><center>
-   <input type="button"
-    value="Wells Fargo"
-    onclick="handleChoice('Wells Fargo', 'https://www.wellsfargo.com/',
-    'LeeAnn', '',
-    'vhsgoddess', 'Snackattack12')">
+  <td width="200"><center><input type="button" value="Wells Fargo"
+ onclick="handleChoice('Wells Fargo',
+ 'https://www.wellsfargo.com/',
+ 'LeeAnn', '',
+ 'vhsgoddess', 'Snackattack12')">
   </center></td>
   <td width="200"></td>
   <td width="200"></td>
  </tr>
- <tr>
-  <td width="200"><center><br>
-   <input type="Text" style="font-size:18px"
-    name="textPLJ" size="5" value="     PLJ"
-    onfocus="handleFocus(thisPLJ)" />
-  </center></td>
-  <td width="200"><center><br>
-   <input type="button" onclick="handleLink(true)"
-    name="buttonLink" value=" T.B.D. ">
-  </center></td>
-  <td width="200"><center><br>
-   <input type="Text" style="font-size:18px"
-    name="textBFJ" size="5" value="     BFJ"
-    onfocus="handleFocus(thisBFJ)" />
-  </center></td>
- </tr>
- <tr>
-  <td width="200"><center><br>
-   <input type="Text" style="font-size:18px"
-    name="textKRJ" size="5" value="     KRJ"
-    onfocus="handleFocus(thisKRJ)" />
-  </center></td>
-  <td width="200"><center><br>
-   <input type="button" onclick="handleLink(false)"
-    name="buttonHome" value="Go to Home">
-  </center></td>
-  <td width="200"><center><br>
-   <input type="Text" style="font-size:18px"
-    name="textRAJ" size="5" value="     RAJ"
-    onfocus="handleFocus(thisRAJ)" />
-  </center></td>
- </tr>
- </table></form>
-</body></html>
+<tr><td width="200"><center><br>
+<input type="Text" style="font-size:18px"
+ name="textPLJ" size="5" value="     PLJ" onfocus="handleFocus(thisPLJ)" />
+</center></td><td width="200"><center><br>
+<input type="button" onclick="handleLink(true)"
+ name="buttonLink" value=" T.B.D. ">
+</center></td><td width="200"><center><br>
+<input type="Text" style="font-size:18px"
+ name="textBFJ" size="5" value="     BFJ" onfocus="handleFocus(thisBFJ)" />
+</center></td></tr>
+<tr><td width="200"><center><br>
+<input type="Text" style="font-size:18px"
+ name="textKRJ" size="5" value="     KRJ" onfocus="handleFocus(thisKRJ)" />
+</center></td><td width="200"><center><br>
+<input type="button" onclick="handleLink(false)"
+ name="buttonHome" value="Go to Home">
+</center></td><td width="200"><center><br>
+<input type="Text" style="font-size:18px"
+ name="textRAJ" size="5" value="     RAJ" onfocus="handleFocus(thisRAJ)" />
+</center></td></tr>
+</table></form></body></html>
