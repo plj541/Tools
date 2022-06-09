@@ -1,19 +1,7 @@
-jplay=: 0 : 0
+0!:100 jPlay=: 0 : 0
 9!:7'+++++++++|-'
 (<~.'plj'; 18!:2 <'base') 18!:2&> <"0 ;:'base pj'
 cocurrent'plj'
-
-Say=: {{
- NB. Should display an= intermediate value
- y 1!:2 [2
-}}
-
-Ask=: {{
- NB. Web replacement for  1!:1 [1
- '' Ask y
-:
- Say 2!:0 'prompt("', y, '", "', x, '")' [Say y
-}}
 
 File=: {{
  2!:0 'window.localStorage.getItem("', y, '")'
@@ -32,7 +20,20 @@ Files=: {{
  'Removed'
 }}
 
-jsEnc_pj_=: {{y Replace ForEach 2 '\';'\\';'"';'\"';LF;'\n'}}
+Say=: {{
+ NB. Should display an= intermediate value
+ y 1!:2 [2
+}}
+
+Ask=: {{
+ NB. Web replacement for  1!:1 [1
+ '' Ask y
+:
+ Say 2!:0 'prompt("', y, '", "', '")',~ jsEnc_pj_
+ x [Say y
+}}
+
+jsEnc_pj_=: {{y Replace ForEach 2 '\';'\\';'"';'\"';LF;'\n';CR;'\r';TAB;'\t'}}
 
 Vr=: {{
  NB. Visual Representation
@@ -228,3 +229,8 @@ Erase=: {{
 
 cocurrent 'base'
 )
+
+jPlay File 'jPlayInit'
+NB. Copy the Last Line Below into Edit, then run it 
+NB. Then use "Last Run Permalink" to create a Browser Bookmark
+{{)n 0!:0 [2!:0 'window.localStorage.getItem("jPlayInit")'}}
