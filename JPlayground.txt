@@ -1,0 +1,230 @@
+jplay=: 0 : 0
+9!:7'+++++++++|-'
+(<~.'plj'; 18!:2 <'base') 18!:2&> <"0 ;:'base pj'
+cocurrent'plj'
+
+Say=: {{
+ NB. Should display an= intermediate value
+ y 1!:2 [2
+}}
+
+Ask=: {{
+ NB. Web replacement for  1!:1 [1
+ '' Ask y
+:
+ Say 2!:0 'prompt("', y, '", "', x, '")' [Say y
+}}
+
+File=: {{
+ 2!:0 'window.localStorage.getItem("', y, '")'
+:
+ y [2!:0 'window.localStorage.setItem("', y, '","', '")',~ jsEnc_pj_ x
+}}
+
+Files=: {{
+ myItems=. ''
+ for_index. i.". 2!:0 '""+ window.localStorage.length' do.
+  myItems=. myItems, <2!:0 'window.localStorage.key(', ')',~ ":index
+ end.
+ /:~  myItems
+:
+ 2!:0 'window.localStorage.removeItem("', '")',~ jsEnc_pj_ x
+ 'Removed'
+}}
+
+jsEnc_pj_=: {{y Replace ForEach 2 '\';'\\';'"';'\"';LF;'\n'}}
+
+Vr=: {{
+ NB. Visual Representation
+ if. 0= 4!:0<y do. t=.<;._1' 1 a. 2 3.5 j < x r , , s1 sa. s2 s3.5 sj s< sn u2 u4'
+  LF2,~ 'NB. Noun: ', y, '=: ', (":$d), '$ of ', ;t{~ 2^. 3!:0 d=. ".y
+ else. t=. >('1234'i. {.d){ ')a'; ')c'; ''; ')d'; 'X' [d=. 5!:5 <y
+  if. ' : '-: 3{.}.d do. e=. 4{. }.d
+   if.     ' : 0'-:  e do. d=. }:d}.~ #e=. (d i. LF){. d=. 5}. d
+   elseif. ' : '''-: e do. d=. ".d}.~ -#e=. (>:d i: '''')}. d=. 4}. d
+   elseif. ' : ('-:  e do. d=. 4}. d
+    if. (;:')"(')+./@E. ;:d do. d=. d}.~ -#e=. d}.~ >:1 i:~ ') " ('E. d
+    else. d=. d}.~ -#e=. (>:d i: ')')}. d end.
+    d=. LF,LF,~ LF Join~ ". d
+   else. ^'DOMAIN ERROR' end.  NB. Unrecognized
+   LF2,~ y, '=: {{', t, d, '}}', e
+  else. LF2,~ y, '=: ', d end.
+ end.
+}}
+
+Join=: ([:; [:}. [:,[ ,.~ [:<])" 1
+WhiteSpace=: WS=: 32 13 10 9{ a.
+TrimStart=: ([#~ [:-. [:*./\ e.)" 1
+TrimEnd=: ([#~ [:-. [:*./\. e.)" 1
+Trim=: (TrimStart TrimEnd ])" 1
+StartsWith=: (([:,])-: [{.~ <.&#)" 1
+EndsWith=: (([:,])-: [{.~ [:-([:#[)<. [:#])" 1
+
+Split=: {{
+ NB. Split x into boxes at each y
+ if. ''-: x do. ,a: return. end.
+ if. ''-: y do. ,<,x return. end.
+ if. 1= #y do.
+  <;._2 x, y
+ else.
+  if. #now=. x noOverlap_pj_ y do.
+   (x{.~ {.now); (#y)}. &.> now indexCut_pj_ x
+  else.
+   ,<,x
+  end.
+ end.
+}}" 1
+
+Replace=: {{
+ 'old new'=. y
+ now=. x noOverlap_pj_ old
+ if. #now do.
+  if. 1 1-: #&> old; new do.
+   x now}~ {.new
+  else.
+   ;(x{.~ {.now); (#old) new &,@}. &.> now indexCut_pj_ x
+  end.
+ else.
+  x
+ end.
+}}" 1
+
+ForEach=: {{
+ NB. Usage: left verb ForEach eachSize multipleEachSizeArgs
+ if. _ -.@-: n=. {.,n do.  NB. When n is _, y must already be grouped
+  y=. |. <"1 (n,~ n%~ #y) $ y=. ,y  NB. Box arguments n at a time
+ end.
+ > u~ &.>/ y, <x
+}}
+
+indexCut_pj_=: {{
+ NB. Cut with x as indexes instead booleans
+ y <;.1~ 1 x} 0#~ #y
+}}
+
+noOverlap_pj_=: {{
+ NB. Find non-overlapping indexes of y in x
+ if. ''-: y do. i. 0 return. end.
+ now=. y I.@E. x
+ if. 2= y +/@E. y, y do. now  NB. Cannot overlap
+ else. all=. now I. now+ #y
+  (i.&_1{.]) (now, _1){~ (all, _1){~ ^:a: 0
+ end.
+}}
+
+Diff=: {{
+ NB. Usage: x [m] Diff n y
+ m '' Diff_plj_ n y
+:
+ n=. 2$ n  NB. n should be ⎕IO for x and y, 1 for external editors, 0 for J nouns
+ x=. boxedLines_pj_ x [y=. boxedLines_pj_ y
+ if. x-: y do. 'They are identical' return. end.
+ if. m-: '' do. m=. ',Old lines,New lines' end.
+ label=. ' ↑ ', old, ' --   -- ↓ ', new, LF ['old new'=. <;._1 m
+ label=. label,~ '-'#~ #":#x ['old new'=. n
+ (x old diffLines_pj_ y), label, y new diffLines_pj_ x
+}}
+
+boxedLines_pj_=: {{
+ NB. Provide boxed lines from one of three possible formats
+ if. L. y do. y                  NB. Already boxed lines
+ elseif. LF e. y do. y Split LF  NB. Contains LF's
+ else. LF Split~ File y end.     NB. A file name
+}}
+
+diffLines_pj_=: {{
+ NB. Display lines which are missing in the other version, m is ⎕IO
+:
+ 'No lines are missing', LF  NB. Which lines in x are missing in y
+ if. 0~: #gone=. (i=. z= #y)# x [z=.y i. x do.
+  ;(<"1 ' | ',"1~ ":,. m+ I. i),. gone,. <LF
+ end. 
+}}
+ 
+Words=: {{
+ NB. Parse .csv input and return a matrix
+ now=. (0; sj_pj_; cj_pj_);: y, LF#~ LF~: {:y
+ now=. now (I. now E.~ 2#comma=. <,',')}~ <''
+ ><;._2 now#~ now~: comma
+:
+ NB. UTF8 characters outside quotes and comments are names in many APLs
+ x=. ,x [mj=. mj_pj_ [sj=. sj_pj_
+ if. -.'"'e. x do. mj=. mj (a.i.'"')}~ 0 end.      NB. Without " turn off it's quote behavior
+ NB. Turn off characters in x which hide non-J words
+ if. +./'NB'E. x do. mj=. mj (a.i.'NB')}~ 2 end.   NB. NB makes them just part of user names
+ if. '.'e. x do. sj=. sj (<1 2; 6; 0 1)}~1 2 end.  NB. . removed from #. and i. but not 12.3
+ if. #x=. x {{y#~ y e. x}} ''':' do. mj=. mj (a.i. x)}~ 0 end.  NB. ' and/or : can be removed
+ (0; sj; mj) ;: y
+}}
+
+Quotes=: {{
+ NB. Remove quotes from a CSV matrix
+ now{~ in=. I.'''"'e.~ {.&> now=. ,y
+ ($y)$ now in}~ ([: }. }:)&.> now{~ in
+:
+ NB. Wrap every item of a CSV matrix
+ ($y)$ x ([ , ,~)&.> ,y
+}}
+
+cj=. 256$2                      NB. Most characters are part of a field
+cj=.  0 (9,a.i.',')}cj          NB. Comma and Tab are field separators
+cj=.  8 (a.i.'''')}cj           NB. ' quote
+cj=. 10 (10)}cj                 NB. LF
+cj=. 14 (a.i.'"')}cj            NB. " quote
+cj_pj_=: cj
+
+mj=. 256$0                      NB. X other
+mj=.  1 (9,a.i.' ')}mj          NB. S space and tab
+mj=.  2 (,(a.i.'Aa')+/i.26)}mj  NB. A A-Z a-z excluding N B
+mj=.  3 (a.i.'N')}mj            NB. N the letter N
+mj=.  4 (a.i.'B')}mj            NB. B the letter B
+mj=.  5 (a.i.'0123456789_')}mj  NB. 9 digits and _
+mj=.  6 (a.i.'.')}mj            NB. . the decimal point
+mj=.  7 (a.i.':')}mj            NB. : the colon
+mj=.  8 (a.i.'''')}mj           NB. ' quote
+mj=.  9 (a.i.'{')}mj            NB. { the left curly brace
+mj=. 10 (10)} mj                NB. LF
+mj=. 11 (a.i.'}')}mj            NB. } the right curly brace
+mj=. 12 (192+i.64)}mj           NB. U utf-8 octet prefix
+mj=. 13 (128+i.64)}mj           NB. V utf-8 octet suffix
+mj=. 14 (a.i.'"')}mj            NB. " quote
+mj_pj_=: mj
+
+sj_pj_=: 0 10#:10*}.".;._2 {{)n
+' X    S    A    N    B    9    .    :    Q    {    LF   }    U    V    " ']0
+ 1.1  0.0  2.1  3.1  2.1  6.1  1.1  1.1  7.1 11.1 10.1 12.1 15.1 16.1 17.1 NB. 0 space
+ 1.2  0.3  2.2  3.2  2.2  6.2  1.0  1.0  7.2 11.2 10.2 12.2 15.2 16.2 17.2 NB. 1 other
+ 1.2  0.3  2.0  2.0  2.0  2.0  1.0  1.0  7.2 11.2 10.2 12.2 15.2 16.2 17.2 NB. 2 alp/num
+ 1.2  0.3  2.0  2.0  4.0  2.0  1.0  1.0  7.2 11.2 10.2 12.2 15.2 16.2 17.2 NB. 3 N
+ 1.2  0.3  2.0  2.0  2.0  2.0  5.0  1.0  7.2 11.2 10.2 12.2 15.2 16.2 17.2 NB. 4 NB
+ 9.0  9.0  9.0  9.0  9.0  9.0  1.0  1.0  9.0  9.0 10.2  9.0  9.0  9.0  9.0 NB. 5 NB.
+ 1.4  0.5  6.0  6.0  6.0  6.0  6.0  1.0  7.4 11.4 10.2 12.4 15.2 16.2 17.4 NB. 6 num
+ 7.0  7.0  7.0  7.0  7.0  7.0  7.0  7.0  8.0  7.0 10.2  7.0  7.0  7.0  7.0 NB. 7 ' 
+ 1.2  0.3  2.2  3.2  2.2  6.2  1.2  1.2  7.0 11.2 10.2 12.2 15.2 16.2  7.0 NB. 8 ''
+ 9.0  9.0  9.0  9.0  9.0  9.0  9.0  9.0  9.0  9.0 10.2  9.0  9.0  9.0  9.0 NB. 9 comment
+ 1.2  0.2  2.2  3.2  2.2  6.2  1.2  1.2  7.2 11.2 10.2 12.2 15.2 16.2 17.2 NB. 10 LF
+ 1.2  0.3  2.2  3.2  2.2  6.2  1.0  1.0  7.2 13.0 10.2  1.2 15.2 16.2 17.2 NB. 11 {
+ 1.2  0.3  2.2  3.2  2.2  6.2  1.0  1.0  7.2  1.2 10.2 14.0 15.2 16.2 17.2 NB. 12 }
+ 1.2  0.3  2.2  3.2  2.2  6.2  1.7  1.7  7.2  1.2 10.2  1.2 15.2 16.2 17.2 NB. 13 {{
+ 1.2  0.3  2.2  3.2  2.2  6.2  1.7  1.7  7.2  1.2 10.2  1.2 15.2 16.2 17.2 NB. 14 }}
+ 1.2  0.3  2.2  3.2  2.2  6.2  1.0  1.0  7.2 11.2 10.2 12.2 15.2 16.0 17.2 NB. 15 partial
+ 1.2  0.3  2.2  3.2  2.2  6.2  1.0  1.0  7.2 11.2 10.2 12.2 15.2 16.0 17.2 NB. 16 utf-8
+17.0 17.0 17.0 17.0 17.0 17.0 17.0 17.0 17.0 17.0 10.2 17.0 17.0 17.0 18.0 NB. 17 "
+ 1.2  0.3  2.2  3.2  2.2  6.2  1.2  1.2 17.0 11.2 10.2 12.2 15.2 16.2 17.0 NB. 18 ""
+}}
+
+Names=: {{
+ list_z_ (<,'y')-.~ 4!:1 y, (y-: '')# i.4
+:
+ 18!:1 y, (y-: '')# i.2
+}}
+
+Erase=: {{
+ 4!:55 ([: ,;: ::]) y
+:
+ 18!:55 ".&> y=. ([: ,;: ::]) y
+  4!:55 y
+}}
+
+cocurrent 'base'
+)
