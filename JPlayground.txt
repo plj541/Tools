@@ -29,8 +29,7 @@ Ask=: {{
  NB. Web replacement for  1!:1 [1
  '' Ask y
 :
- Say 2!:0 'prompt("', y, '", "', '")',~ jsEnc_pj_
- x [Say y
+ Say (2!:0) 'prompt("', y, '", "', '")',~ jsEnc_pj_ x [Say y
 }}
 
 jsEnc_pj_=: {{y Replace ForEach 2 '\';'\\';'"';'\"';LF;'\n';CR;'\r';TAB;'\t'}}
