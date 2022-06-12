@@ -1,0 +1,58 @@
+'Examples' File~ 0 : 0
+Menu_plj_=: {{)n
+Next 'SeeWebApp'     NB. Link to a Web based App
+Next 'SeeEditText'   NB. Use Edit with text
+Next 'SeeEditTable'  NB. Use Edit with a numeric table
+}}
+)
+
+'SeeWebApp' File~ 0 : 0
+]
+NB. Setup values for APL.js Run demo
+RunJS=: 'https://plj541.github.io/APL.js/Run.html?'
+Safeway=: 'Page=shop&Config=shopSafeway&Store=Safeway'
+SmartFinal=: 'Page=shop&Config=shopSmart&Store=Smart %26 Final'
+
+NB. To link to the app, enter one of these examples:
+Link RunJS, Safeway
+Link RunJS, SmartFinal
+)
+
+'SeeEditText' File~ 0 : 0
+
+Edit~ Vr 'ForEach'     NB. Use Edit with a definition
+
+Edit~ File 'MyDoc'     NB. Use Edit with text
+
+'MyDoc' File~ Edit ''  NB. When done, save it locally
+)
+
+'SeeEditTable' File~ 0 : 0
+]
+NB. Format numbers to Edit 4= #'  _.'
+Prepare=: {{,LF,.~ (x j.~ (4+ x)+ >.10^. >./|y)": y}}
+
+NB. After changes, recreate a table of numbers from Edit
+Restore=: {{".&> LF Split~ LF Trim~ y}}
+
+NB. Create 9 rows of sample data with 5 columns
+data=: 0.01* 9 5 ?@$ 10^ 7 6 3 4 5
+
+NB. And put it in Edit to view or change
+Edit~ 2 Prepare data
+
+NB. Capture the numbers in Edit 
+now=. Restore Edit ''
+
+NB. If you didn't make changes, the result is 1   
+now-: data
+NB. If not, confirm which ones you changed
+now~: data
+
+NB. Guess what this does
+Where=: {{
+ look=. ($y)$ a:
+ where=. ,x~: y
+ ($y)$ (,look) (I.where)}~ <"0 where# ,y
+}}
+)
