@@ -3,22 +3,7 @@
 (<~.'plj'; 18!:2 <'base') 18!:2&> <"0 ;:'base pj'
 cocurrent'plj'
 
-File=: {{
- 2!:0 'window.localStorage.getItem("', y, '")'
-:
- y [2!:0 'window.localStorage.setItem("', y, '","', '")',~ jsEnc_pj_ x
-}}
-
-Files=: {{
- myItems=. ''
- for_index. i.". 2!:0 '""+ window.localStorage.length' do.
-  myItems=. myItems, <2!:0 'window.localStorage.key(', ')',~ ":index
- end.
- Sort myItems
-:
- 2!:0 'window.localStorage.removeItem("', '")',~ jsEnc_pj_ x
- 'Removed'
-}}
+NB. J-Playground verbs for using Javascript in the browser
 
 Say=: {{
  NB. Should display an intermediate value
@@ -30,6 +15,23 @@ Ask=: {{
  '' Ask y
 :
  (2!:0) 'prompt("', y, '", "', '")',~ jsEnc_pj_ x [Say y
+}}
+
+File=: {{
+ 2!:0 'window.localStorage.getItem("', y, '")'
+:
+ y [2!:0 'window.localStorage.setItem("', y, '","', '")',~ jsEnc_pj_ x
+}}
+
+Files=: {{
+ myItems=. ''
+ for_index. i.". 2!:0 '""+ window.localStorage.length' do.
+  myItems=. myItems, <2!:0 'window.localStorage.key(', ')',~ ":index
+ end.
+ Across Sort myItems
+:
+ 2!:0 'window.localStorage.removeItem("', '")',~ jsEnc_pj_ x
+ 'Removed'
 }}
 
 Edit=: {{
@@ -61,7 +63,7 @@ Next=: {{
 jsEnc_pj_=: {{y Replace ForEach 2 '\';'\\';'"';'\"';LF;'\n';CR;'\r';TAB;'\t'}}
 
 Vr=: {{
- NB. Visual Representation
+ NB. Visual Representation with {{ }} appearance
  if. 0= 4!:0<y do. t=.<;._1' 1 a. 2 3.5 j < x r , , s1 sa. s2 s3.5 sj s< sn u2 u4'
   LF2,~ 'NB. Noun: ', y, '=: ', (":$d), '$ of ', ;t{~ 2^. 3!:0 d=. ".y
  else. t=. >('1234'i. {.d){ ')a'; ')c'; ''; ')d'; 'X' [d=. 5!:5 <y
@@ -77,6 +79,8 @@ Vr=: {{
   else. LF2,~ y, '=: ', d end.
  end.
 }}
+
+NB. String verbs with .Net names
 
 Join=: ([:; [:}. [:,[ ,.~ [:<])" 1
 WhiteSpace=: WS=: 32 13 10 9{ a.
@@ -143,7 +147,7 @@ noOverlap_pj_=: {{
 
 Diff=: {{
  NB. Usage: x [m] Diff n y
- m '' Diff_plj_ n y
+ m '' Diff n y
 :
  n=. 2$ n  NB. n should be ⎕IO for x and y, 1 for external editors, 0 for J nouns
  x=. boxedLines_pj_ x [y=. boxedLines_pj_ y
@@ -170,19 +174,21 @@ diffLines_pj_=: {{
  end. 
 }}
 
-Fmt=: {{
- NB. -    +   -   +  mp Before; nq After; b[zero]; d[nill]; r[fill]
- 'm[ (]p[  ]n[)]q[ ]c0.2' Fmt_plj_ y
-:
- if. 0 e. $y do. ''$~ $y return. end.
- if. L. x do.
-  x=. }: ;(<'m[ (]p[  ]n[)]q[ ]⍕,') Replace_plj_&.> <"1 x,.~ <'⍕'
- end.
- x 8!:2 y
-}}
+NB. Output display verbs
 
 Across=: {{
  2 foldBoxes_pj_ y
+}}
+
+Fmt=: {{
+ NB. -    +   -   +  mp Before; nq After; b[zero]; d[nill]; r[fill]
+ 'm[ (]p[  ]n[)]q[ ]c0.2' Fmt y
+:
+ if. 0 e. $y do. ''$~ $y return. end.
+ if. L. x do.
+  x=. }: ;(<'m[ (]p[  ]n[)]q[ ]⍕,') Replace&.> <"1 x,.~ <'⍕'
+ end.
+ x 8!:2 y
 }}
 
 Unbox=: {{
@@ -204,20 +210,20 @@ foldBoxes_pj_=: {{
  else. x, y end.
 }}
 
-WIDTH_pj_=: 50
+WIDTH_pj_=: 67
 
 Sort=: {{
  NB. Dictionary Sort
- 'a' Sort_plj_ y
+ 'a' Sort y
 :
  x=. 3| 'ad AD /\'i. {.x
  if. x= 2 do. ^'Unrecognized Sort option' return. end.
- y /:`\: @. x Keys_plj_ >y
+ y /:`\: @. x Keys >y
 }}
 
 Keys=: {{
  NB. Provide the right argument for Dictionary Sort
- KEYS_pj_ Keys_plj_ y
+ KEYS_pj_ Keys y
 :
  if. ''-: y do. y return. end.
  if. x +.&(2 ~: #@$) y do. ^'Two matrices are required' end.
@@ -239,6 +245,8 @@ KEYS_pj_=: 1|."1 >;._2 [{{)n
  +&
 }}
 
+NB. Utility combinations with names I can remember
+
 Do=: {{
  0!:101 y
 :
@@ -247,7 +255,7 @@ Do=: {{
 }}
 
 Names=: {{
- list_z_ (<,'y')-.~ 4!:1 y, (y-: '')# i.4
+ Across (<,'y')-.~ 4!:1 y, (y-: '')# i.4
 :
  18!:1 y, (y-: '')# i.2
 }}
