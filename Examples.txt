@@ -1,8 +1,8 @@
 'Examples' File~ 0 : 0
 Menu_plj_=: {{)n
-Next 'SeeWebApp'     NB. Link to a Web based App
 Next 'SeeEditText'   NB. Use Edit with text
 Next 'SeeEditTable'  NB. Use Edit with a numeric table
+Next 'SeeWebApp'     NB. Link to a Web based App
 }}
 )
 
