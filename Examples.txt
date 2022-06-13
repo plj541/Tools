@@ -56,3 +56,11 @@ Where=: {{
  ($y)$ (,look) (I.where)}~ <"0 where# ,y
 }}
 )
+
+'Updates' File~ 0 : 0
+NB. File 'Updates'  NB. to display and run these individually
+Do~ Page 'https://plj541.github.io/Tools/JPlayground.txt'
+Do~ Page 'https://plj541.github.io/Tools/Examples.txt'
+NB. Do File 'Updates'  NB. to run them all together
+)
+   
