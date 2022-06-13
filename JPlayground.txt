@@ -170,6 +170,42 @@ diffLines_pj_=: {{
  end. 
 }}
 
+Fmt=: {{
+ NB. -    +   -   +  mp Before; nq After; b[zero]; d[nill]; r[fill]
+ 'm[ (]p[  ]n[)]q[ ]c0.2' Fmt_plj_ y
+:
+ if. 0 e. $y do. ''$~ $y return. end.
+ if. L. x do.
+  x=. }: ;(<'m[ (]p[  ]n[)]q[ ]⍕,') Replace_plj_&.> <"1 x,.~ <'⍕'
+ end.
+ x 8!:2 y
+}}
+
+Across=: {{
+ 2 foldBoxes_pj_ y
+}}
+
+Unbox=: {{
+ NB. Remove boxing characters from result
+ was=. 9!:6 ''
+ 9!:7 [11# rep=. 30{ a.
+ 9!:7 was [now=. ": <y
+ now=. 1 1}. _1 _1}. now
+ rho=. $now=. (-.*./"1 now= rep)# now 
+ rho$ ' ' (I. now= rep)} now=. ,now
+}}
+
+foldBoxes_pj_=: {{
+ NB. Format the disclose of boxed characters into lines
+ insert=. _1+ +/\ |. (WIDTH_pj_+ m) foldBoxes_pj_/ |. 0, 0,~ m+ #&> y
+ (->:m)}. LF insert }'X',~ ;y ,&.> <m# ' '
+:
+ if. m> next=. x+ {.y do. next, }.y
+ else. x, y end.
+}}
+
+WIDTH_pj_=: 50
+
 Sort=: {{
  NB. Dictionary Sort
  'a' Sort_plj_ y
