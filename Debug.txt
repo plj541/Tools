@@ -1,0 +1,58 @@
+Do File 'Debug' File~ 0 : 0
+cocurrent 'plj'
+Debug=: {{)a
+ if. '".'-: 5!:5 <'u' do.  NB. Debugging
+  while. 2< #13!:18 '' do.
+   if. #LINE_pj_ do. 2!:0 'alert ("', '")',~ jsEnc_pj_ LINE_pj_ end.
+   9!:29 [1 [9!:27 '". Debug' [LINE_pj_=: ''
+   try.
+    select. ;2{. ;:LINE_pj_=: Ask '? or ]help'
+     case. ']help'   do. MORE_pj_ HELP_pj_
+     case. ']stack'  do. MORE_pj_ 2}. 13!:18 ''
+     case. ']locals' do. MORE_pj_ (2 2$ 0 3 7 8{ ])"1[ }.13!:13 ''
+     case. ']resume' do. u. '13!:4 i.0' return.
+     case. ']next'   do. u. '13!:5 i.0' return.
+     case. ']return' do. u. '13!:6 u. VALUE_pj_' [VALUE_pj_=:Ask 'Value to return?' return.
+     case. ']stop'   do. 13!:0 [0 [9!:29 [0 return.
+     case. do. MORE_pj_ u. LINE_pj_
+    end.
+   catch.
+    MORE_pj_ 13!:12 ''  NB. Error
+   end.
+  end.
+ else. NB. Setup
+  MORE_pj_=: {{'' [LINE_pj_=: 'Request:  ', LINE_pj_, LF,  'Response:  ', displayLines_pj_ Say y}}
+  LINE_pj_=: ''
+  13!:0 [1  NB. Suspend on an error
+  9!:29 [1 [9!:27 '". Debug'
+ end.
+}}
+
+HELP_pj_=: {{)n
+ ]help    NB. This list of commands
+ ]stack   NB. The execution stack
+ ]locals  NB. Locals at each level of the execution stack
+ ]resume  NB. Resume execution on the failing line
+ ]next    NB. Resume execution on the next line
+ ]return  NB. Stopped verb returns value
+ ]stop    NB. Turn off debugging
+ NB. Anything else is evaluated, including assignments
+}}
+cocurrent 'base'
+
+NB. Define two test verbs
+fun=: {{
+ one=. y+ 10
+ one=. x* one
+ one
+}}
+
+fubar=: {{
+ tis=. 2$ x [mine=. 2$ y
+ tis fun mine
+}}
+ 
+test=: {{)n
+ that=: 'dogs' fubar i.3 2 []Debug
+}}
+)
