@@ -338,6 +338,3 @@ cocurrent 'base'
 )
 
 jPlay File 'jPlayInit'  NB. Save this version
-NB. Copy the Last Line Below into Edit, then run it 
-NB. Then use "Last Run Permalink" to create a Browser Bookmark
-{{)n 0!:0 [2!:0 'window.localStorage.getItem("jPlayInit")'}}
