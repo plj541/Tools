@@ -4,7 +4,6 @@
 cocurrent'plj'
 
 NB. J-Playground verbs for using Javascript in the browser
-
 Say=: {{
  NB. Should display an intermediate value
  y 1!:2 [2
@@ -14,7 +13,7 @@ Ask=: {{
  NB. Web replacement for  1!:1 [1
  '' Ask y
 :
- (2!:0) 'prompt("', y, '", "', '")',~ jsEnc_pj_ x [Say y
+ Say 2!:0 'prompt("', y, '", "', '")',~ jsEnc_pj_ x [Say y
 }}
 
 File=: {{
@@ -50,6 +49,7 @@ Page=: {{
  RESPONSE_httpget_
 }}
 
+NB. Simplistic demo start and step through
 Next=: {{
  if. ' '= {.0$ y do. y=. 0 [next_pj_=: <;._1 File y end.
  if. y< #next_pj_ do. 
@@ -60,28 +60,97 @@ Next=: {{
  else. 'NB. That''s all folks!' end.
 }}
 
+Debug=: {{)a
+ if. '".'-: 5!:5 <'u' do.  NB. Debugging
+  while. '*'e. {."1 dbst'' do.  NB. 3< #13!:18 '' do.
+   if. #LINE_pj_ do. 2!:0 'alert ("', '")',~ jsEnc_pj_ LINE_pj_ end. 
+   9!:29 [1 [9!:27 '". Debug' [LINE_pj_=: ''
+   try.
+    select. ;2{. PART_pj_=: ;:LINE_pj_=: Ask 'Enter Debug Request'
+     case. ']help'   do. MORE_pj_ HELP_pj_
+     case. ']stack'  do. MORE_pj_ 2}. 13!:18 ''
+     case. ']locals' do. MORE_pj_ (2 2$ 0 3 7 8{ ])"1 }.13!:13 ''
+     case. ']resume' do. u. '13!:4 i.0' return.
+     case. ']next'   do. u. '13!:5 i.0' return.
+     case. ']return' do. u. '13!:6 ]'ARG_pj_ return.
+     case. ']stop'   do. u. '13!:3 ]'ARG_pj_ return.
+     case. ']quit'   do. 13!:0 [0 [9!:29 [0 return.
+     case. do. MORE_pj_ u. LINE_pj_
+    end.
+   catch.
+    MORE_pj_ 13!:12 ''  NB. Error
+   end.
+  end.
+ else. NB. Setup
+  LINE_pj_=: ''
+  if. -.13!:17 '' do. 13!:0 [1 end. NB. Suspend on an error
+  9!:29 [1 [9!:27 '". Debug'
+ end.
+}}
+
+Ask=: {{
+ NB. Web replacement for  1!:1 [1
+ '' Ask y
+:
+ 3}. Say '   ', 2!:0 'prompt("', y, '", "', '")',~ jsEnc_pj_ x [Say y
+}}
+
+ARG_pj_=: {{
+ cmd=. ;1{ PART_pj_
+ m, LINE_pj_}.~ (#cmd)+ cmd I.@E. LINE_pj_
+}}
+
+MORE_pj_=: {{'' [LINE_pj_=: 'Request: ', LINE_pj_, LF, 'Response:', LF, displayLines_pj_ Say y}}
+
+HELP_pj_=: {{)n
+ ]help    NB. This list of commands
+ ]stack   NB. The execution stack
+ ]locals  NB. Locals at each level of the execution stack
+ ]resume  NB. Resume execution on the failing line
+ ]next    NB. Resume execution on the next line
+ ]return  NB. Stopped verb returns value, e.g.  541
+ ]stop    NB. Set stops, e.g.  'fun mon:di
+ ]quit    NB. Turn off debugging
+ NB. Anything else is evaluated, including assignments
+}}
+
 jsEnc_pj_=: {{y Replace ForEach 2 '\';'\\';'"';'\"';LF;'\n';CR;'\r';TAB;'\t'}}
 
+NB. View definitions of names
 Vr=: {{
- NB. Visual Representation with {{ }} appearance
- if. 0= 4!:0<y do. t=.<;._1' 1 a. 2 3.5 j < x r , , s1 sa. s2 s3.5 sj s< sn u2 u4'
-  LF2,~ 'NB. Noun: ', y, '=: ', (":$d), '$ of ', ;t{~ 2^. 3!:0 d=. ".y
+ NB. Visual Representation
+ if. 0= 4!:0<y do. t=. (":$d), '$ of data type:  ', datatype d=. ".y
+  LF,~ 'NB. ', y, ('=: '''''}.~ _2* '$'~: {.t), t, LF, displayLines_pj_ d
  else. t=. >('1234'i. {.d){ ')a'; ')c'; ''; ')d'; 'X' [d=. 5!:5 <y
   if. ' : '-: 3{.}.d do. e=. 4{. }.d
    if.     ' : 0'-:  e do. d=. }:d}.~ #e=. (d i. LF){. d=. 5}. d
    elseif. ' : '''-: e do. d=. ".d}.~ -#e=. (>:d i: '''')}. d=. 4}. d
    elseif. ' : ('-:  e do. d=. 4}. d
-    if. +./(;:')"(')E. ;:d do. d=. d}.~ -#e=. d}.~ >:1 i:~ ') " ('E. d
+    if. (;:')"(')+./@E. ;:d do. d=. d}.~ -#e=. d}.~ >:1 i:~ ') " ('E. d
     else. d=. d}.~ -#e=. (>:d i: ')')}. d end.
     d=. LF,LF,~ LF Join~ ". d
    else. ^'DOMAIN ERROR' end.  NB. Unrecognized
-   LF2,~ y, '=: {{', t, d, '}}', e
-  else. LF2,~ y, '=: ', d end.
+   LF,~ y, '=: {{', t, d, '}}', e
+  else. LF,~ y, '=: ', d end.
+ end.
+}}
+
+displayLines_pj_ =: {{
+ NB. Format an array as a vector
+ if. 0~: L. y do. NB. Correct appearance of LF in first level boxes
+  fix=. LF&e. &> rav=. ,y
+  y=. ($y)$ (,y) (I.fix)}~ ([:>;._2 (10{a.),~ ])&.> rav#~ fix
+ end.
+ y=. ": y
+ if. 0< r=. _1+ #$ y do.
+ NB.       {{,"2 y,"1 x}}
+  (-r)}. LF ([:,"2 ,"1~)^: r y
+ else.
+  ,y
  end.
 }}
 
 NB. String verbs with .Net names
-
 Join=: ([:; [:}. [:,[ ,.~ [:<])" 1
 WhiteSpace=: WS=: 32 13 10 9{ a.
 TrimStart=: ([#~ [:-. [:*./\ e.)" 1
@@ -139,7 +208,7 @@ noOverlap_pj_=: {{
  NB. Find non-overlapping indexes of y in x
  if. ''-: y do. i. 0 return. end.
  now=. y I.@E. x
- if. 2= +/y E. y, y do. now  NB. Cannot overlap
+ if. 2= y +/@E. y, y do. now  NB. Cannot overlap
  else. all=. now I. now+ #y
   (i.&_1{.]) (now, _1){~ (all, _1){~ ^:a: 0
  end.
@@ -175,7 +244,6 @@ diffLines_pj_=: {{
 }}
 
 NB. Output display verbs
-
 Across=: {{
  2 foldBoxes_pj_ y
 }}
@@ -246,7 +314,6 @@ KEYS_pj_=: 1|."1 >;._2 [{{)n
 }}
 
 NB. Utility combinations with names I can remember
-
 Do=: {{
  0!:101 y
 :
