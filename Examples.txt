@@ -3,28 +3,20 @@ Menu_plj_=: {{)n
 Next 'SeeEditText'   NB. Use Edit with text
 Next 'SeeEditTable'  NB. Use Edit with a numeric table
 Next 'SeeWebApp'     NB. Link to a Web based App
+Next 'SeeDebug'      NB. Debug an error
 }}
 )
 
-'SeeWebApp' File~ 0 : 0
-]
-NB. Setup values for APL.js Run demo
-RunJS=: 'https://plj541.github.io/APL.js/Run.html?'
-Safeway=: 'Page=shop&Config=shopSafeway&Store=Safeway'
-SmartFinal=: 'Page=shop&Config=shopSmart&Store=Smart %26 Final'
-
-NB. To link to the app, enter one of these examples:
-Link RunJS, Safeway
-Link RunJS, SmartFinal
-)
-
 'SeeEditText' File~ 0 : 0
+]
+NB. Use Edit with a definition
+Edit~ Vr 'ForEach'
+]
+NB. Use Edit with text
+Edit~ File 'MyDoc'
 
-Edit~ Vr 'ForEach'     NB. Use Edit with a definition
-
-Edit~ File 'MyDoc'     NB. Use Edit with text
-
-'MyDoc' File~ Edit ''  NB. When done, save it locally
+NB. When done, save it locally
+'MyDoc' File~ Edit ''  NB. Try it now
 )
 
 'SeeEditTable' File~ 0 : 0
@@ -33,22 +25,23 @@ NB. Format numbers to Edit 4= #'  _.'
 Prepare=: {{,LF,.~ (x j.~ (4+ x)+ >.10^. >./|y)": y}}
 
 NB. After changes, recreate a table of numbers from Edit
-Restore=: {{".&> LF Split~ LF Trim~ y}}
+Restore=: {{__". >;._1 LF, y Trim WS}}
 
 NB. Create 9 rows of sample data with 5 columns
 data=: 0.01* 9 5 ?@$ 10^ 7 6 3 4 5
-
+]
 NB. And put it in Edit to view or change
 Edit~ 2 Prepare data
-
+]
 NB. Capture the numbers in Edit 
 now=. Restore Edit ''
-
+]
 NB. If you didn't make changes, the result is 1   
 now-: data
-NB. If not, confirm which ones you changed
-now~: data
 
+NB. If not, confirm which ones you changed
+now~: data  NB. Try it now
+]
 NB. Guess what this does
 Where=: {{
  look=. ($y)$ a:
@@ -63,4 +56,47 @@ Do~ Page 'https://plj541.github.io/Tools/JPlayground.txt'
 Do~ Page 'https://plj541.github.io/Tools/Examples.txt'
 NB. Do File 'Updates'  NB. to run them all together
 )
-   
+
+'SeeWebApp' File~ 0 : 0
+]
+NB. Setup values for APL.js Run demo
+RunJS=: 'https://plj541.github.io/APL.js/Run.html?'
+Safeway=: 'Page=shop&Config=shopSafeway&Store=Safeway'
+SmartFinal=: 'Page=shop&Config=shopSmart&Store=Smart %26 Final'
+
+NB. To link to the app, enter one of these examples:
+Link RunJS, Safeway     NB. Try it now
+Link RunJS, SmartFinal  NB. Try it now
+)
+
+'SeeDebug' File~ 0 : 0
+]
+NB. Define two test verbs
+fun=: {{
+ one=. y+ 10
+ one=. x* one
+ one
+}}
+
+fubar=: {{
+ tis=. 2$ x [mine=. 2$ y
+ tis fun mine
+}}
+]
+Edit~ {{)n
+ ]Debug                      NB. To start debugging
+ Press Cancel                NB. To leave the automatic response
+ 
+ ]help                       NB. To learn what debug commands are available
+ x                           NB. To see the value of x
+ x=. 100                     NB. To provide an acceptable value
+ ]resume                     NB. Resumes execution of the line which failed
+}}
+
+NB. To test an error after setting debug:
+ dbr 1                       NB. Try it now, turn on debugging
+ ]that=: 'dogs' fubar i.3 2  NB. Try it now, the rest of the example is in Edit
+
+NB. To test an error without first setting debug:
+ ]that=: 'dogs' fubar i.3 2 []Debug
+)
