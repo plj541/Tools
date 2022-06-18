@@ -1,6 +1,9 @@
 0!:100 jPlay=: 0 : 0
 9!:7'+++++++++|-'
 (<~.'plj'; 18!:2 <'base') 18!:2&> <"0 ;:'base pj'
+
+wcsize_z_=: {{<.17 12%~ ".2!:0 '(""+window.innerWidth)+(" "+window.innerHeight)'}}
+
 cocurrent'plj'
 
 NB. J-Playground verbs for using Javascript in the browser
@@ -13,7 +16,7 @@ Ask=: {{
  NB. Web replacement for  1!:1 [1
  '' Ask y
 :
- Say 2!:0 'prompt("', y, '", "', '")',~ jsEnc_pj_ x [Say y
+ 3}. Say '   ', 2!:0 'prompt("', y, '", "', '")',~ jsEnc_pj_ x [Say y
 }}
 
 File=: {{
@@ -27,7 +30,7 @@ Files=: {{
  for_index. i.". 2!:0 '""+ window.localStorage.length' do.
   myItems=. myItems, <2!:0 'window.localStorage.key(', ')',~ ":index
  end.
- Across Sort myItems
+ Across myItems/: Keys myItems
 :
  2!:0 'window.localStorage.removeItem("', '")',~ jsEnc_pj_ x
  'Removed'
@@ -60,25 +63,31 @@ Next=: {{
  else. 'NB. That''s all folks!' end.
 }}
 
-Debug=: {{)a
+Debug_plj_=: {{)a
  if. '".'-: 5!:5 <'u' do.  NB. Debugging
-  while. '*'e. {."1 dbst'' do.  NB. 3< #13!:18 '' do.
+  while. '*'e. {."1 [13!:18'' do.  NB. 3< #13!:18 '' do.
    if. #LINE_pj_ do. 2!:0 'alert ("', '")',~ jsEnc_pj_ LINE_pj_ end. 
    9!:29 [1 [9!:27 '". Debug' [LINE_pj_=: ''
    try.
     select. ;2{. PART_pj_=: ;:LINE_pj_=: Ask 'Enter Debug Request'
      case. ']help'   do. MORE_pj_ HELP_pj_
-     case. ']stack'  do. MORE_pj_ 2}. 13!:18 ''
+     case. ']error'  do. MORE_pj_ 13!:12 ''
+     case. ']stack'  do. MORE_pj_ 2}. _2}. 13!:18 ''
      case. ']locals' do. MORE_pj_ (2 2$ 0 3 7 8{ ])"1 }.13!:13 ''
      case. ']resume' do. u. '13!:4 i.0' return.
      case. ']next'   do. u. '13!:5 i.0' return.
      case. ']return' do. u. '13!:6 ]'ARG_pj_ return.
      case. ']stop'   do. u. '13!:3 ]'ARG_pj_ return.
      case. ']quit'   do. 13!:0 [0 [9!:29 [0 return.
-     case. do. MORE_pj_ u. LINE_pj_
+     case. do.
+      if. #PART_pj_ do. RESPONSE_pj_=: u. LINE_pj_
+       if. #RESPONSE_pj_ do. MORE_pj_ RESPONSE_pj_
+       elseif. _1 e. 4!:0 PART_pj_ do. 0!:101 LINE_pj_
+       else. MORE_pj_ '' end.
+      end.
     end.
    catch.
-    MORE_pj_ 13!:12 ''  NB. Error
+    MORE_pj_ 13!:12 ''
    end.
   end.
  else. NB. Setup
@@ -86,13 +95,6 @@ Debug=: {{)a
   if. -.13!:17 '' do. 13!:0 [1 end. NB. Suspend on an error
   9!:29 [1 [9!:27 '". Debug'
  end.
-}}
-
-Ask=: {{
- NB. Web replacement for  1!:1 [1
- '' Ask y
-:
- 3}. Say '   ', 2!:0 'prompt("', y, '", "', '")',~ jsEnc_pj_ x [Say y
 }}
 
 ARG_pj_=: {{
@@ -104,12 +106,13 @@ MORE_pj_=: {{'' [LINE_pj_=: 'Request: ', LINE_pj_, LF, 'Response:', LF, displayL
 
 HELP_pj_=: {{)n
  ]help    NB. This list of commands
+ ]error   NB. The most recent error message
  ]stack   NB. The execution stack
  ]locals  NB. Locals at each level of the execution stack
  ]resume  NB. Resume execution on the failing line
  ]next    NB. Resume execution on the next line
  ]return  NB. Stopped verb returns value, e.g.  541
- ]stop    NB. Set stops, e.g.  'fun mon:di
+ ]stop    NB. Set stops, e.g.  'fun mon:dia'
  ]quit    NB. Turn off debugging
  NB. Anything else is evaluated, including assignments
 }}
@@ -200,10 +203,12 @@ ForEach=: {{
 }}
 
 indexCut_pj_=: {{
- NB. Cut with x as indexes instead booleans
+ NB. Cut with x as indexes instead of booleans
  y <;.1~ 1 x} 0#~ #y
 }}
 
+NB. Code from: https://code.jsoftware.com/wiki/Essays/Substring_Replacement
+NB. Similar to: text nosindx~ old
 noOverlap_pj_=: {{
  NB. Find non-overlapping indexes of y in x
  if. ''-: y do. i. 0 return. end.
@@ -259,6 +264,11 @@ Fmt=: {{
  x 8!:2 y
 }}
 
+Keys=: {{
+ keys=. (('                                   (((( ((            (abcdefghijklmnopqrstuvwxyz( ((  abcdefghijklmnopqrstuvwxyz( (  '{~ ]), '                                03C789B101CB792C012345678956CAC46111111111111111111111111112C3A8C000000000000000000000000004C5CC'{~ ])
+ ([:keys a.i. ])"1 >y
+}}
+
 Unbox=: {{
  NB. Remove boxing characters from result
  was=. 9!:6 ''
@@ -271,46 +281,11 @@ Unbox=: {{
 
 foldBoxes_pj_=: {{
  NB. Format the disclose of boxed characters into lines
- insert=. _1+ +/\ |. (WIDTH_pj_+ m) foldBoxes_pj_/ |. 0, 0,~ m+ #&> y
+ insert=. _1+ +/\ |. (m+ {.wcsize_z_'') foldBoxes_pj_/ |. 0, 0,~ m+ #&> y
  (->:m)}. LF insert }'X',~ ;y ,&.> <m# ' '
 :
  if. m> next=. x+ {.y do. next, }.y
  else. x, y end.
-}}
-
-WIDTH_pj_=: 67
-
-Sort=: {{
- NB. Dictionary Sort
- 'a' Sort y
-:
- x=. 3| 'ad AD /\'i. {.x
- if. x= 2 do. ^'Unrecognized Sort option' return. end.
- y /:`\: @. x Keys >y
-}}
-
-Keys=: {{
- NB. Provide the right argument for Dictionary Sort
- KEYS_pj_ Keys y
-:
- if. ''-: y do. y return. end.
- if. x +.&(2 ~: #@$) y do. ^'Two matrices are required' end.
- (1 2* $y)$ ,0 2 1|: |."1 (0 1* $x)#: (,x) i. y
-}}
-
-KEYS_pj_=: 1|."1 >;._2 [{{)n
-0 (abcdefghijklmnopqrstuvwxyz
-1')ABCDEFGHIJKLMNOPQRSTUVWXYZ
-2.[
-3!]
-4?{
-5:}
-6;@
-7,#
-8_$
-9-%
- =^
- +&
 }}
 
 NB. Utility combinations with names I can remember
