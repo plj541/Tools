@@ -63,46 +63,46 @@ Next=: {{
  else. 'NB. That''s all folks!' end.
 }}
 
-Debug_plj_=: {{)a
- if. '".'-: 5!:5 <'u' do.  NB. Debugging
+Debug=: {{
+ if. '".'-: 5!:5 <'u' do.
   while. '*'e. {."1 [13!:18'' do.  NB. 3< #13!:18 '' do.
-   if. #LINE_pj_ do. 2!:0 'alert ("', '")',~ jsEnc_pj_ LINE_pj_ end. 
-   9!:29 [1 [9!:27 '". Debug' [LINE_pj_=: ''
+   if. #line_pj_ do. 2!:0 'alert ("', '")',~ jsEnc_pj_ line_pj_ end. 
+   9!:29 [1 [9!:27 '". Debug' [line_pj_=: ''
    try.
-    select. ;2{. PART_pj_=: ;:LINE_pj_=: Ask 'Enter Debug Request'
-     case. ']help'   do. MORE_pj_ HELP_pj_
-     case. ']error'  do. MORE_pj_ 13!:12 ''
-     case. ']stack'  do. MORE_pj_ 2}. _2}. 13!:18 ''
-     case. ']locals' do. MORE_pj_ (2 2$ 0 3 7 8{ ])"1 }.13!:13 ''
+    select. ;2{. part_pj_=: ;:line_pj_=: Ask 'Enter Debug Request'
+     case. ']help'   do. more_pj_ HELP_pj_
+     case. ']error'  do. more_pj_ 13!:12 ''
+     case. ']stack'  do. more_pj_ 2}. _2}. 13!:18 ''
+     case. ']locals' do. more_pj_ (2 2$ 0 3 7 8{ ])"1 }.13!:13 ''
      case. ']resume' do. u. '13!:4 i.0' return.
      case. ']next'   do. u. '13!:5 i.0' return.
-     case. ']return' do. u. '13!:6 ]'ARG_pj_ return.
-     case. ']stop'   do. u. '13!:3 ]'ARG_pj_ return.
+     case. ']return' do. u. '13!:6 ]'arg_pj_ return.
+     case. ']stop'   do. u. '13!:3 ]'arg_pj_ return.
      case. ']quit'   do. 13!:0 [0 [9!:29 [0 return.
      case. do.
-      if. #PART_pj_ do. RESPONSE_pj_=: u. LINE_pj_
-       if. #RESPONSE_pj_ do. MORE_pj_ RESPONSE_pj_
-       elseif. _1 e. 4!:0 PART_pj_ do. 0!:101 LINE_pj_
-       else. MORE_pj_ '' end.
+      if. #part_pj_ do. resp_pj_=: u. line_pj_
+       if. #resp_pj_ do. more_pj_ resp_pj_
+       elseif. _1 e. 4!:0 part_pj_ do. 0!:101 line_pj_
+       else. more_pj_ '' end.
       end.
     end.
    catch.
-    MORE_pj_ 13!:12 ''
+    more_pj_ 13!:12 ''
    end.
   end.
  else. NB. Setup
-  LINE_pj_=: ''
+  line_pj_=: ''
   if. -.13!:17 '' do. 13!:0 [1 end. NB. Suspend on an error
   9!:29 [1 [9!:27 '". Debug'
  end.
 }}
 
-ARG_pj_=: {{
- cmd=. ;1{ PART_pj_
- m, LINE_pj_}.~ (#cmd)+ cmd I.@E. LINE_pj_
+arg_pj_=: {{
+ cmd=. ;1{ part_pj_
+ m, line_pj_}.~ (#cmd)+ cmd I.@E. line_pj_
 }}
 
-MORE_pj_=: {{'' [LINE_pj_=: 'Request: ', LINE_pj_, LF, 'Response:', LF, displayLines_pj_ Say y}}
+more_pj_=: {{'' [line_pj_=: 'Request: ', line_pj_, LF, 'Response:', LF, displayLines_pj_ Say y}}
 
 HELP_pj_=: {{)n
  ]help    NB. This list of commands
@@ -146,7 +146,7 @@ displayLines_pj_ =: {{
  end.
  y=. ": y
  if. 0< r=. _1+ #$ y do.
- NB.       {{,"2 y,"1 x}}
+  NB.      {{,"2 y,"1 x}}
   (-r)}. LF ([:,"2 ,"1~)^: r y
  else.
   ,y
