@@ -2,11 +2,12 @@
 9!:7'+++++++++|-'
 (<~.'plj'; 18!:2 <'base') 18!:2&> <"0 ;:'base pj'
 
+NB. Attempt to make wcsize relevant to browser window size 
 wcsize_z_=: {{<.17 12%~ ".2!:0 '(""+window.innerWidth)+(" "+window.innerHeight)'}}
 
 cocurrent'plj'
 
-NB. J-Playground verbs for using Javascript in the browser
+NB. J-Playground verbs for using JavaScript in the browser
 Say=: {{
  NB. Should display an intermediate value
  y 1!:2 [2
@@ -63,6 +64,7 @@ Next=: {{
  else. 'NB. That''s all folks!' end.
 }}
 
+NB. Handle error or stop with JavaScript prompt and alert
 Debug=: {{
  if. '".'-: 5!:5 <'u' do.
   while. '*'e. {."1 [13!:18'' do.  NB. 3< #13!:18 '' do.
@@ -297,9 +299,11 @@ Do=: {{
 }}
 
 Names=: {{
- Across (<,'y')-.~ 4!:1 y, (y-: '')# i.4
+ NB. List names, ''=all, 0=noun, 1=adverb, 2=conjunction, 3=verb
+ Across (/:Keys)~ (;:'y')-.~ 4!:1 y, (y-: '')# i.4
 :
- 18!:1 y, (y-: '')# i.2
+ NB. List locales, ''=all, 0=named, 1=numbered
+ Across (/:Keys)~ 18!:1 y, (y-: '')# i.2
 }}
 
 Erase=: {{
