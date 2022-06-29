@@ -85,7 +85,7 @@ fubar=: {{
 }}
 ]
 Edit~ {{)n
- ]Debug                      NB. To start debugging
+ ]debug                      NB. To start debugging
  Press Cancel                NB. To leave the automatic response
  
  ]help                       NB. To learn what debug commands are available
@@ -94,10 +94,10 @@ Edit~ {{)n
  ]resume                     NB. Resumes execution of the line which failed
 }}
 
-NB. To test an error after setting debug:
+NB. To test an error after using dbr to turn on debugging:
  dbr 1                       NB. Try it now, turn on debugging
  ]that=: 'dogs' fubar i.3 2  NB. Try it now, the rest of the example is in Edit
 
-NB. To test an error without first setting debug:
- ]that=: 'dogs' fubar i.3 2 []Debug
+NB. To test an error without first using dbr:
+ ]that=: 'dogs' fubar i.3 2 ]debug
 )
