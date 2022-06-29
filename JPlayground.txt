@@ -2,10 +2,10 @@
 9!:7'+++++++++|-'
 (<~.'plj'; 18!:2 <'base') 18!:2&> <"0 ;:'base pj'
 
-NB. Attempt to make wcsize relevant to browser window size 
-wcsize_z_=: {{<.17 12%~ ".2!:0 '(""+window.innerWidth)+(" "+window.innerHeight)'}}
-
 cocurrent'plj'
+
+NB. Attempt to make wcsize relevant to browser window size 
+wcsize=: {{<.17 12%~ ".2!:0 '(""+window.innerWidth)+(" "+window.innerHeight)'}}
 
 NB. J-Playground verbs for using JavaScript in the browser
 Say=: {{
@@ -67,6 +67,7 @@ Next=: {{
 NB. Handle error or stop with JavaScript prompt and alert
 Debug=: {{
  if. '".'-: 5!:5 <'u' do.
+  line_pj_=: 13!:12 ''
   while. '*'e. {."1 [13!:18'' do.  NB. 3< #13!:18 '' do.
    if. #line_pj_ do. 2!:0 'alert ("', '")',~ jsEnc_pj_ line_pj_ end. 
    9!:29 [1 [9!:27 '". Debug' [line_pj_=: ''
@@ -79,7 +80,11 @@ Debug=: {{
      case. ']resume' do. u. '13!:4 i.0' return.
      case. ']next'   do. u. '13!:5 i.0' return.
      case. ']return' do. u. '13!:6 ]'arg_pj_ return.
-     case. ']stop'   do. u. '13!:3 ]'arg_pj_ return.
+     case. ']into'   do. u. '13!:21 i.0' return.
+     case. ']over'   do. u. '13!:20 i.0' return.
+     case. ']out'    do. u. '13!:22 i.0' return.
+     case. ']stop'   do. 13!:3 ]''arg_pj_
+     case. ']stops'  do. Say 13!:2 ''
      case. ']quit'   do. 13!:0 [0 [9!:29 [0 return.
      case. do.
       if. #part_pj_ do. resp_pj_=: u. line_pj_
@@ -114,7 +119,11 @@ HELP_pj_=: {{)n
  ]resume  NB. Resume execution on the failing line
  ]next    NB. Resume execution on the next line
  ]return  NB. Stopped verb returns value, e.g.  541
- ]stop    NB. Set stops, e.g.  'fun mon:dia'
+ ]into    NB. Run into current line, stop at next line (possibly called)
+ ]over    NB. Complete running current line, stop at next line
+ ]out     NB. Complete running current definition, stop at next line
+ ]stop    NB. Set lines to stop on, e.g.  fun 3:2
+ ]stops   NB. Reports current stops
  ]quit    NB. Turn off debugging
  NB. Anything else is evaluated, including assignments
 }}
@@ -251,9 +260,7 @@ diffLines_pj_=: {{
 }}
 
 NB. Output display verbs
-Across=: {{
- 2 foldBoxes_pj_ y
-}}
+Across=: {{({.wcsize '')foldtext y Join '  '}}
 
 Fmt=: {{
  NB. -    +   -   +  mp Before; nq After; b[zero]; d[nill]; r[fill]
@@ -279,15 +286,6 @@ Unbox=: {{
  now=. 1 1}. _1 _1}. now
  rho=. $now=. (-.*./"1 now= rep)# now 
  rho$ ' ' (I. now= rep)} now=. ,now
-}}
-
-foldBoxes_pj_=: {{
- NB. Format the disclose of boxed characters into lines
- insert=. _1+ +/\ |. (m+ {.wcsize_z_'') foldBoxes_pj_/ |. 0, 0,~ m+ #&> y
- (->:m)}. LF insert }'X',~ ;y ,&.> <m# ' '
-:
- if. m> next=. x+ {.y do. next, }.y
- else. x, y end.
 }}
 
 NB. Utility combinations with names I can remember
