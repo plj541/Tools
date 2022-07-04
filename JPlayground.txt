@@ -5,7 +5,7 @@
 cocurrent'plj'
 
 NB. Attempt to make wcsize relevant to browser window size 
-wcsize=: {{<.17 12%~ ".2!:0 '(""+window.innerWidth)+(" "+window.innerHeight)'}}
+wcsize=: {{<.17 12%~ ". 2!:0 'window.innerWidth+" "+window.innerHeight'}}
 
 NB. J-Playground verbs for using JavaScript in the browser
 Say=: {{
@@ -31,10 +31,9 @@ Files=: {{
  for_index. i.". 2!:0 '""+ window.localStorage.length' do.
   myItems=. myItems, <2!:0 'window.localStorage.key(', ')',~ ":index
  end.
- Across myItems/: Keys myItems
+ Across (/:Keys) myItems
 :
  2!:0 'window.localStorage.removeItem("', '")',~ jsEnc_pj_ x
- 'Removed'
 }}
 
 Edit=: {{
@@ -59,7 +58,7 @@ Next=: {{
  if. y< #next_pj_ do. 
   now=. ;y{ next_pj_
   if. ']'= {.now do. Do }.now
-  else. ''[ Say now end.
+  else. '' [Say now end.
   if. (y=. >:y)< #next_pj_ do. 'Next ', ":y end.
  else. 'NB. That''s all folks!' end.
 }}
@@ -202,7 +201,6 @@ Replace=: {{
 
 ForEach=: {{
  NB. Usage: verb ForEach eachSize multipleEachSizeArgs
-:
  if. _ -.@-: n=. {.,n do.  NB. When n is _, y must already be grouped
   y=. |. <"1 (n,~ n%~ #y) $ y=. ,y  NB. Box arguments n at a time
  end.
@@ -248,7 +246,6 @@ boxedLines_pj_=: {{
 
 diffLines_pj_=: {{
  NB. Display lines which are missing in the other version, m is ⎕IO
-:
  'No lines are missing', LF  NB. Which lines in x are missing in y
  if. 0~: #gone=. (i=. z= #y)# x [z=.y i. x do.
   ;(<"1 ' | ',"1~ ":,. m+ I. i),. gone,. <LF
