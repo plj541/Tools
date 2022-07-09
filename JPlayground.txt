@@ -65,7 +65,7 @@ Next=: {{
 
 NB. Handle error or stop with JavaScript prompt and alert
 debug=: {{
- if. '".'-: 5!:5 <'u' do.
+ if. '".'-: 5!:5 <'u' do. ".AGAIN_pj_  NB. Debugging
   line_pj_=: 13!:12 ''
   while. '*'e. {."1 [13!:18'' do.  NB. 3< #13!:18 '' do.
    if. #line_pj_ do. 2!:0 'alert ("', '")',~ jsEnc_pj_ line_pj_ end. 
@@ -74,12 +74,12 @@ debug=: {{
     select. ;2{. part_pj_=: ;:line_pj_=: Ask 'Enter a debug request'
      case. ']debug'  do.
      case. ']help'   do. more_pj_ HELP_pj_
-     case. ']error'  do. more_pj_ 13!:12 ''
+     case. ']alert'  do. more_pj_ 13!:12 ''
      case. ']stack'  do. more_pj_ 2}. _2}. 13!:18 ''
      case. ']locals' do. more_pj_ (2 2$ 0 3 7 8{ ])"1 }.13!:13 ''
      case. ']resume' do. 13!:4 i.0 return.
      case. ']next'   do. 13!:5 i.0 return.
-     case. ']return' do. 13!:6 ]arg_pj_ return.
+     case. ']return' do. 13!:6 [u. ]arg_pj_ return.
      case. ']stop'   do. 13!:3 ]arg_pj_
      case. ']stops'  do. Say 13!:2 ''
      case. ']quit'   do. 13!:0 [0 [9!:29 [0 return.
@@ -101,6 +101,38 @@ debug=: {{
  end.
 }}
 
+Cr=: {{
+ NB. Displays lines with line numbers used during debugging
+ mon=. y Cr~ <1 [dia=. y Cr~ <2 [y=. ,y
+ cr=. y, (>{:mon), (,':'), >{:dia
+ ln=. 'p<[>q<] >0'8!:2 ,.(>{.mon), _, >{.dia
+ ln=. ' ', ln (<0;~ #>{.mon)}~ ' '
+ ln,. cr
+:
+ cr=. md (5!:7) <y [md=. >x
+ if. 0= #cr do. (i.0); 0 0$ '' return. end.
+ line=. {:&> 1{"1 cr
+ lines=. i.>:{:line
+ lines=. lines#~ lines e. line 
+ cr=. ' ' Join~ (lines =/line)#"1 [2{"1 cr
+ if. md~: x do. lines; cr
+ else. (y, cr),.~ (3": md), 'p<[>q<] >0'8!:2 ,.lines end.
+}}
+
+Local=: {{
+ NB. Run u with local definition y on stack
+ '' u Local y
+:
+ find=. {{if. (#y)~: in=. ({."1 y)i. <m do. ;x{ in{ y else. '' end.}} 
+ stk=. 13!:13 '' [was=. 18!:5 ''
+ if. ''-: name=. 4 y find stk do. name=. 1 y find ;7{ 1{stk end.
+ if. ''-: name do. 'Name not found' return. end.
+ 18!:4 PS [Do~ (y, '__PS=: '), name
+ if. x-: '' do. now=. u y
+ else. now=. x u y end.
+ now [18!:4 was
+}}
+
 arg_pj_=: {{
  cmd=. ;1{ part_pj_
  m, line_pj_}.~ (#cmd)+ cmd I.@E. line_pj_
@@ -110,17 +142,16 @@ more_pj_=: {{'' [line_pj_=: 'Request: ', line_pj_, LF, 'Response:', LF, displayL
 
 HELP_pj_=: {{)n
  ]help    NB. This list of commands
- ]error   NB. The most recent error message
+ ]alert   NB. The most recent message from an error or stop
  ]stack   NB. The execution stack
  ]locals  NB. Locals at each level of the execution stack
- ]resume  NB. Resume execution on the failing line
- ]next    NB. Resume execution on the next line
- ]return  NB. Stopped verb returns value, e.g.  541
- ]stop    NB. Set lines to stop on, e.g.  fun 3:2
- ]stops   NB. Reports current stops
+ ]resume  NB. Resume the current line
+ ]next    NB. Restart on the next line
+ ]return  NB. Return the value provided, e.g.  ]return 541
+ ]stop    NB. Set lines to stop on, e.g.  ]stop fun 3:2
+ ]stops   NB. Report current stops
  ]quit    NB. Turn off debugging
- ]out     NB. Complete running current definition, stop at next line
- NB. Anything else is evaluated, including assignments
+ NB. Anything else is evaluated, including assignments to your locals
 }}
 
 jsEnc_pj_=: {{y Replace ForEach 2 '\';'\\';'"';'\"';LF;'\n';CR;'\r';TAB;'\t'}}
@@ -303,6 +334,14 @@ Erase=: {{
  18!:55 ".&> y=. ([: ,;: ::]) y
   4!:55 y
 }}
+
+New=: {{
+ locale=. 18!:3 ''  NB. Create an object
+ locale 18!:2~ 18!:2 <'base'  NB. Give it the name search path of base
+ locale [Do~ File__locale y
+}}
+
+PS=: New ''
 
 cocurrent 'base'
 )
