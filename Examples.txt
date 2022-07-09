@@ -73,8 +73,14 @@ Link RunJS, SmartFinal  NB. Try it now
 ]
 NB. Define two test verbs
 fun=: {{
+ NB. This will fail if either argument is characters
+ mine=. {{
+  a=. 'this is mine '
+  a, y}}
+ now=. mine x
  one=. y+ 10
  one=. x* one
+ Say 'fun'; now; one
  one
 }}
 
