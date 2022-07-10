@@ -65,11 +65,10 @@ Next=: {{
 
 NB. Handle error or stop with JavaScript prompt and alert
 debug=: {{
- if. '".'-: 5!:5 <'u' do. 9!:29 [1 [9!:27 '". debug'  NB. Debugging
+ if. '".'-: 5!:5 <'u' do.  NB. Debugging
   line_pj_=: 13!:12 ''
-  while. '*'e. {."1 [13!:18'' do.  NB. 3< #13!:18 '' do.
+  while. '*'e. {."1 [13!:18'' do. 9!:29 [1 [9!:27 '". debug'
    if. #line_pj_ do. 2!:0 'alert ("', '")',~ jsEnc_pj_ line_pj_ end. 
-   9!:29 [1 [9!:27 '". debug' [line_pj_=: ''
    try.
     select. ;2{. part_pj_=: ;:line_pj_=: Ask 'Enter a debug request'
      case. ']debug'  do.
@@ -77,8 +76,8 @@ debug=: {{
      case. ']alert'  do. more_pj_ 13!:12 ''
      case. ']stack'  do. more_pj_ 2}. _2}. 13!:18 ''
      case. ']locals' do. more_pj_ (2 2$ 0 3 7 8{ ])"1 }.13!:13 ''
-     case. ']resume' do. 13!:4 i.0 return.
-     case. ']next'   do. 13!:5 i.0 return.
+     case. ']resume' do. 13!:4 '' return.
+     case. ']next'   do. 13!:5 '' return.
      case. ']return' do. 13!:6 [u. ]arg_pj_ return.
      case. ']stop'   do. 13!:3 ]arg_pj_
      case. ']stops'  do. Say 13!:2 ''
