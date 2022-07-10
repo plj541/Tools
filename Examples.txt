@@ -105,5 +105,5 @@ NB. To test an error after using dbr to turn on debugging:
  ]that=: 'dogs' fubar i.3 2  NB. Try it now, the rest of the example is in Edit
 
 NB. To test an error without first using dbr:
- ]that=: 'dogs' fubar i.3 2 ]debug
+ ]that=: 'dogs' fubar i.3 2 []debug
 )
