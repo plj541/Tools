@@ -79,9 +79,9 @@ debug=: {{
      case. ']locals' do. more_pj_ (2 2$ 0 3 7 8{ ])"1 }.13!:13 ''
      case. ']resume' do. 13!:4 '' return.
      case. ']next'   do. 13!:5 '' return.
-     case. ']return' do. 13!:6 [u. ]arg_pj_ return.
-     case. ']stop'   do. 13!:3 ]arg_pj_
-     case. ']stops'  do. Say 13!:2 ''
+     case. ']return' do. 13!:6 u. ]arg_pj_ return.
+     case. ']stop'   do. 13!:3 []arg_pj_
+     case. ']stops'  do. more_pj_ 13!:2 ''
      case. ']quit'   do. 13!:0 [0 [9!:29 [0 return.
      case. do.
       if. #part_pj_ do. resp_pj_=: u. line_pj_
@@ -133,9 +133,9 @@ Local=: {{
  now [18!:4 was
 }}
 
-arg_pj_=: {{
+arg_pj_=: {{)a
  cmd=. ;1{ part_pj_
- m, line_pj_}.~ (#cmd)+ cmd I.@E. line_pj_
+ line_pj_}.~ (#cmd)+ {.cmd I.@E. line_pj_
 }}
 
 more_pj_=: {{'' [line_pj_=: 'Request: ', line_pj_, LF, 'Response:', LF, displayLines_pj_ Say y}}
