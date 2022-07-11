@@ -66,7 +66,8 @@ Next=: {{
 NB. Handle error or stop with JavaScript prompt and alert
 debug=: {{
  if. '".'-: 5!:5 <'u' do.  NB. Debugging
-  if. '*'e. {."1 [13!:18 '' do. line_pj_=: 13!:12 '' end.
+  if. '*'e. {."1 [13!:18 '' do. line_pj_=: 13!:12 ''
+  else. 13!:0 [0 return. end.
   while. '*'e. {."1 [13!:18'' do. 9!:29 [1 [9!:27 '". debug'
    if. #line_pj_ do. 2!:0 'alert ("', '")',~ jsEnc_pj_ line_pj_ end. 
    try.
