@@ -291,7 +291,7 @@ Fmt=: {{
  'm[ (]p[  ]n[)]q[ ]c0.2' Fmt y
 :
  if. 0 e. $y do. ''$~ $y return. end.
- if. L. x do.
+ if. L. x do.  NB. Format each column as Financial
   x=. }: ;(<'m[ (]p[  ]n[)]q[ ]⍕,') Replace&.> <"1 x,.~ <'⍕'
  end.
  x 8!:2 y
@@ -313,6 +313,16 @@ Unbox=: {{
 }}
 
 NB. Utility combinations with names I can remember
+Load=: {{
+ clear ''
+ Do~ File y
+ if. 0= 4!:0<'help' do. help end.
+}}
+
+Copy=: {{
+ Do~ File y
+}}
+
 Do=: {{
  0!:101 y
 :
