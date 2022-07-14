@@ -85,7 +85,7 @@ fun=: {{
 }}
 
 fubar=: {{
- tis=. 2$ x [mine=. 2$ y
+ tis=. x [mine=. y
  this=. tis fun mine
  this; tis; mine
 }}
