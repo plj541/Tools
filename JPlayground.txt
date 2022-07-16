@@ -1,5 +1,4 @@
 0!:100 jPlay=: 0 : 0
-9!:7'+++++++++|-'
 (<~.'plj'; 18!:2 <'base') 18!:2&> <"0 ;:'base pj'
 
 cocurrent'plj'
@@ -50,17 +49,6 @@ Page=: {{
  URL_httpget_=: y
  2!:0 httpgetJS_jpacman_
  RESPONSE_httpget_
-}}
-
-NB. Simplistic demo start and step through
-Next=: {{
- if. ' '= {.0$ y do. y=. 0 [next_pj_=: <;._1 File y end.
- if. y< #next_pj_ do. 
-  now=. ;y{ next_pj_
-  if. ']'= {.now do. Do }.now
-  else. '' [Say now end.
-  if. (y=. >:y)< #next_pj_ do. 'Next ', ":y end.
- else. 'NB. That''s all folks!' end.
 }}
 
 NB. Handle error or stop with JavaScript prompt and alert
@@ -140,7 +128,7 @@ arg_pj_=: {{)a
 
 more_pj_=: {{'' [line_pj_=: 'Request: ', line_pj_, LF, 'Response:', LF, displayLines_pj_ Say y}}
 
-HELP_pj_=: {{)n
+HELP_pj_=: }:{{)n
  ]help    NB. This list of commands
  ]alert   NB. The most recent message from an error or stop
  ]stack   NB. The execution stack
@@ -336,13 +324,6 @@ Names=: {{
 :
  NB. List locales, ''=all, 0=named, 1=numbered
  Across (/:Keys)~ 18!:1 y, (y-: '')# i.2
-}}
-
-Erase=: {{
- 4!:55 ([: ,;: ::]) y
-:
- 18!:55 ".&> y=. ([: ,;: ::]) y
-  4!:55 y
 }}
 
 New=: {{
