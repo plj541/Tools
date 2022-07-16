@@ -1,10 +1,25 @@
 'Examples' File~ 0 : 0
-Menu_plj_=: {{)n
+cocurrent 'plj'
+
+Menu=: {{)n
 Next 'SeeEditText'   NB. Use Edit with text
 Next 'SeeEditTable'  NB. Use Edit with a numeric table
 Next 'SeeWebApp'     NB. Link to a Web based App
 Next 'SeeDebug'      NB. Debug an error
 }}
+
+NB. Simplistic demo start and step through
+Next=: {{
+ if. ' '= {.0$ y do. y=. 0 [next_pj_=: <;._1 File y end.
+ if. y< #next_pj_ do. 
+  now=. ;y{ next_pj_
+  if. ']'= {.now do. Do }.now
+  else. '' [Say now end.
+  if. (y=. >:y)< #next_pj_ do. 'Next ', ":y end.
+ else. 'NB. That''s all folks!' end.
+}}
+
+cocurrent 'base'
 )
 
 'SeeEditText' File~ 0 : 0
