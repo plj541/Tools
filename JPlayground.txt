@@ -179,18 +179,11 @@ displayLines_pj_ =: {{
 }}
 
 NB. String verbs with .Net names
-Join=: ([:; [:}. [:,[ ,.~ [:<])" 1
-WhiteSpace=: WS=: 32 13 10 9{ a.
-TrimStart=: ([#~ [:-. [:*./\ e.)" 1
-TrimEnd=: ([#~ [:-. [:*./\. e.)" 1
-Trim=: (TrimStart TrimEnd ])" 1
-StartsWith=: (([:,])-: [{.~ <.&#)" 1
-EndsWith=: (([:,])-: [{.~ [:-([:#[)<. [:#])" 1
 
 Split=: {{
  NB. Split x into boxes at each y
- if. ''-: x do. ,a: return. end.
- if. ''-: y do. ,<,x return. end.
+ if. ''-: x do. 0# a: return. end.
+ if. ''-: y do. <@,"0 x return. end.
  if. 1= #y do.
   <;._2 x, y
  else.
@@ -200,47 +193,67 @@ Split=: {{
    ,<,x
   end.
  end.
-}}" 1
+}} " 1
+
+NB. Put y between each box of x
+NB.    (  ;   }.   ,x ,.~   <y) " 1
+Join=: ([:; [:}. [:,[ ,.~ [:<]) " 1
+
+NB. White space for HTML and XML
+WhiteSpace=: WS=: 32 13 10 9{ a.
+
+NB. Trim characters at the start
+NB.         (x#~   -.   *./\ x e. y) " 1
+TrimStart=: ([#~ [:-. [:*./\   e.  ) " 1
+
+NB. Trim characters at the end
+NB.       (x#~   -.   *./\. x e. y) " 1
+TrimEnd=: ([#~ [:-. [:*./\.   e.  ) " 1
+
+NB. Trim characters at the start and end
+NB.    ((x TrimStart y) TrimEnd y) " 1
+Trim=: (   TrimStart    TrimEnd ]) " 1
+Trim=: Trim f.
+
+NB. Does x start with y
+NB.          ((  ,y)-: x{.~ x <.&# y) " 1
+StartsWith=: (([:,])-: [{.~   <.&#  ) " 1
+
+NB. Does x end with y
+NB.        ((  ,y)-: x{.~   -(  #x)<.   #y) " 1
+EndsWith=: (([:,])-: [{.~ [:-([:#[)<. [:#]) " 1
 
 Replace=: {{
  NB.    Usage: text Replace old; new
  NB. Multiple: text Replace ForEach 2 ;:'this that now then'
  'old new'=. y
- now=. x noOverlap_pj_ old
- if. #now do.
-  if. 1 1-: #&> old; new do.
-   x now}~ {.new
-  else.
-   ;(x{.~ {.now); (#old) new &,@}. &.> now indexCut_pj_ x
-  end.
- else.
-  x
- end.
+ if. 1 1-: #&> y do. x (x I.@e. old)}~ {.new
+ else. new Join~ x Split old end.
 }} " 1
 
 ForEach=: {{
- NB. Usage: verb ForEach eachSize multipleEachSizeArgs
+ NB. Usage: left verb ForEach eachSize multipleEachSizeArgs
  if. _ -.@-: n=. {.,n do.  NB. When n is _, y must already be grouped
   y=. |. <"1 (n,~ n%~ #y) $ y=. ,y  NB. Box arguments n at a time
  end.
  > u~ &.>/ y, <x
 }}
 
+NB. Support for strings
+
 indexCut_pj_=: {{
- NB. Cut with x as indexes instead of booleans
+ NB. Cut with x as indexes instead booleans
  y <;.1~ 1 x} 0#~ #y
 }}
 
-NB. Code from: https://code.jsoftware.com/wiki/Essays/Substring_Replacement
-NB. Similar to: text nosindx~ old
 noOverlap_pj_=: {{
  NB. Find non-overlapping indexes of y in x
+ NB. Code from: https://code.jsoftware.com/wiki/Essays/Substring_Replacement
+ NB. Similar to: text nosindx~ old
  if. ''-: y do. i. 0 return. end.
  now=. y I.@E. x
- if. 2= y +/@E. y, y do. now  NB. Cannot overlap
- else. all=. now I. now+ #y
-  (i.&_1{.]) (now, _1){~ (all, _1){~ ^:a: 0
- end.
+ all=. now I. now+ #y
+ (i.&_1{.]) (now, _1){~ (all, _1){~ ^:a: 0
 }}
 
 Diff=: {{
