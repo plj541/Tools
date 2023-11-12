@@ -26,7 +26,7 @@ File=: {{
 }}
 
 Files=: {{
- myItems=. ''
+ if. -.y-: myItems=. '' do. [:'y must be empty' end.
  for_index. i.". 2!:0 '""+ window.localStorage.length' do.
   myItems=. myItems, <2!:0 'window.localStorage.key(', ')',~ ":index
  end.
@@ -36,6 +36,7 @@ Files=: {{
 }}
 
 Edit=: {{
+ if. -.y-: '' do. [:'y must be empty' end.
  2!:0 'ecm.getDoc().getValue()'
 :
  2!:0 'ecm.getDoc().setValue("', '")',~ jsEnc_pj_ x
