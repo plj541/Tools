@@ -1,0 +1,53 @@
+(9!:7) '+++++++++|-'
+(9!:37) 0 127 25 4
+
+cocurrent 'plj'
+
+Js=: 2!:0
+
+Log=: {{
+ 10 0 Log ''
+:
+ NB. Provide input log for Firefox
+ log=. '","' Split~ 2}. _2}. File'dlog'
+ log=. LF Join~ take{. drop}. log ['take drop'=. 2{. x, 10 10
+ log Replace '\"'; '"'
+}}
+
+Jelp=: {{
+ NB. J help pages on the web
+ z=. 'https://code.jsoftware.com/wiki/'
+ select. y
+ case. 'n' do. z=. z, 'NuVoc'
+ case. 'o' do. z=. z, 'Standard_Library/Overview'
+ case. 'l' do. z=. z, 'Vocabulary/Locales#explain'
+ case. 'r' do. z=. z, 'System/ReleaseNotes/J901'
+ case. 'c' do. z=. z, 'Vocabulary/SpecialCombinations'
+ case. 'm' do. z=. z, 'Main_Page'
+ case. 'h' do. z=. 'https://code2.jsoftware.com/wiki/Help/Primer/Hook'
+ case. 'f' do. z=. 'https://code2.jsoftware.com/wiki/Help/Primer/Fork'
+ case. 'F' do. z=. 'https://code2.jsoftware.com/wiki/Essays/Capped_Fork'
+ case. 't' do. z=. 'https://code2.jsoftware.com/wiki/Essays/Tacit_Expressions'
+ case. ''  do. z=. 'https://www.jsoftware.com/help/dictionary/vocabul.htm'
+ case. do. y, ' is not here' return. end.
+ NB. BAA
+ NB. Join the Webinar https://zoom.us/j/858532665
+ NB. The passcode to this meeting is 391680
+ Link z
+}}
+
+Args=: {{
+ NB. https://jsoftware.github.io/j-playground/bin/html2/#Page=shop&User=Paul&Store=Safeway
+ arg=. y i.~ {."1 theArgs_pj_
+ if. arg= #theArgs_pj_ do. 0
+ else. ;2{ arg{ theArgs_pj_ end.
+:
+ args=. '#'Split~ Js'window.location.href'
+ args=. >(;: ;{:args)Split <,'&'
+ b=. I. a:= {."1 a
+ theArgs_pj_=: a (<b;2)}~<1
+}}
+
+
+cocurrent 'base'
+('NB. Hello Paul, it''s ', 6!:0 'YYMMDD.hhmmss')Edit ''
