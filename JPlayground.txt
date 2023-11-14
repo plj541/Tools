@@ -1,3 +1,9 @@
+NB. This version was written before some of this
+NB. was added to the default JPlayground session.
+NB. I am no longer updating this version.
+
+NB. Since File and Page are now available to all users,
+NB. this self-installing file is no longer needed.
 0!:100 jPlay=: 0 : 0
 (<~.'plj'; 18!:2 <'base') 18!:2&> <"0 ;:'base pj'
 
