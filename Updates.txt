@@ -1,7 +1,4 @@
-NB. File 'Updates'  NB. to display and run these individually
 Do~ Page 'https://plj541.github.io/Tools/JPlayground.txt'
 Do~ Page 'https://plj541.github.io/Tools/Examples.txt'
 'ExtraTools' File~ Page 'https://plj541.github.io/Tools/ExtraTools.txt'
 'startup.ijs' File~ Page 'https://plj541.github.io/Tools/startup.ijs'
-'Updates' File~ Page 'https://plj541.github.io/Tools/Updates.txt'
-NB. Do File 'Updates'  NB. to run them all together
