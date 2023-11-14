@@ -1,4 +1,4 @@
-Do~ Page 'https://plj541.github.io/Tools/JPlayground.txt'
-Do~ Page 'https://plj541.github.io/Tools/Examples.txt'
+'JPlayTools' File~ Page 'https://plj541.github.io/Tools/JPlayTools.txt'
+'Examples' File~ Page 'https://plj541.github.io/Tools/Examples.txt'
 'ExtraTools' File~ Page 'https://plj541.github.io/Tools/ExtraTools.txt'
 'startup.ijs' File~ Page 'https://plj541.github.io/Tools/startup.ijs'
