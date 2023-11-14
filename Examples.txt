@@ -1,4 +1,3 @@
-'Examples' File~ 0 : 0
 cocurrent 'plj'
 
 Menu=: {{)n
@@ -20,7 +19,6 @@ Next=: {{
 }}
 
 cocurrent 'base'
-)
 
 'SeeEditText' File~ 0 : 0
 ]
