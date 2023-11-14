@@ -1,0 +1,46 @@
+{{
+ Copy 'CSV'                      NB. Get data and code for a demo
+ url=. 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us-counties.csv'
+ full=. '",' csvLoad Page url    NB. Get today's county covid data
+ labels=: {.full [data=: }.full  NB. Separate labels from data
+ from=: {{x{"1~ labels i.;:y}}   NB. Return columns in x from labels in y
+ data=: data/: ,"2 >data from 'state county'  NB. States needs data sorted
+}} _
+
+help=: {{)n
+ NB. Reports from the New York Times Covid-19 stats for US Counties
+                         NB. Stats for County, State pairs
+ Percent Counties <;._1 ',Bexar,Texas,Dallas,Texas,Santa Clara,California'
+ Percent States ''       NB. Stats by State
+}}
+
+Counties=: {{
+ NB. Cells of just the rows you request
+ live=. y$~ 2,~ 2%~ #y                         NB. Provide an n by 2 table
+ find=. live i.~ data from 'county state'      NB. Find live in data
+ left=. (find{ data) from 'date county state'  NB. Get text rows and columns
+ nums=. {.@". &> data from 'cases deaths'      NB. Get cases and deaths as numbers
+ body=. left,. <"0 find{ nums                  NB. Body of Report
+ sums=. (<;._1 '||USA|Totals'), <"0 +/ nums    NB. Bottom line
+ labels=. ;:'date county state cases deaths'
+ labels, body, sums
+}}
+
+States=: {{
+ NB. Cells of Covid stats summarized by State
+ state=. ,data from 'state'                    NB. Get the state
+ last=. I. 1,~ 2 ~:/\state                     NB. Index of last for each state
+ nums=. {.@". &> data from 'cases deaths'      NB. Need cases and deaths as numbers
+ sums=. sums- 0, }:sums=. last{ +/\nums        NB. Total for each state
+ labels=. ;:'state cases deaths'
+ left=. (last{ state), <'    Total'
+ labels, left,. <"0 sums, +/sums
+}}
+
+Percent=: {{
+ NB. Text report with a new stat
+ nums=. >}._2{."1 y                            NB. Get deaths and cases
+ nums=. nums,. 100* %~/"1 nums                 NB. Percentage of deaths per case
+ nums=. 'c12.0,c11.0,9.3'Fmt nums              NB. Format as positive Financial
+ (Unbox _2}."1 y),. '       cases     deaths  %deaths', nums
+}}
