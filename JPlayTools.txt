@@ -249,12 +249,13 @@ indexCut_pj_=: {{
 
 noOverlap_pj_=: {{
  NB. Find non-overlapping indexes of y in x
- NB. Code from: https://code.jsoftware.com/wiki/Essays/Substring_Replacement
- NB. Similar to: text nosindx~ old
- if. ''-: y do. i. 0 return. end.
+ NB. See nosindx: https://code.jsoftware.com/wiki/Essays/Substring_Replacement
+ if. ''-: y do. i.0 return. end.
  now=. y I.@E. x
+ if. -.({.y) e. }.y do. now return. end.
  all=. now I. now+ #y
- (i.&_1{.]) (now, _1){~ (all, _1){~ ^:a: 0
+ NB.         Avoid error with _1 as 23rd element and last
+ (i.&_1{.]) (now, _1){~ (all, _1 _1){~ ^:a: 0
 }}
 
 Diff=: {{
