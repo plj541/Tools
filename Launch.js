@@ -7,6 +7,7 @@ function OnStart() {
   } else {
    app.OpenUrl(myFile)
   }
+  app.SetClipboardText(":*?")  // Tell J I'm Done
  }
  app.Exit()
 }
